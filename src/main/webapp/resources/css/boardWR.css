@@ -1,0 +1,65 @@
+@charset "UTF-8";
+.board_WR{
+	font-family: 'Nanum Gothic', sans-serif;
+	display: flex;
+	flex-direction: column;
+	margin: 20px;
+}
+.board_WR .top{
+	display:flex;
+	justify-content: center;
+}
+
+.board_WR .top .title{
+	display:flex;
+	align-items:center;
+	margin:10px;
+	width: 80%;
+}
+.title div{
+	border-radius:5px;
+	background-color: #E2E2E2;
+	padding: 3px;
+	width: 10%;	
+	text-align: center;
+	font-size: 20px;
+}
+
+.title input{
+	border:1px solid #D2D2D2;
+	border-radius:4px;
+	padding:6px;
+	width: 80%; 
+}
+.board_WR .group{
+	margin:10px;
+	width: 15%;
+}
+#category{
+	font-size:20px;
+	font-family: 'Nanum Gothic', sans-serif;
+	border:1px solid #D2D2D2;
+	border-radius:4px;
+	padding: 5px;
+	width: 100%;
+}
+
+.board_WR .mid{
+	margin:10px
+}
+
+
+.board_WR .bottom{
+	text-align:center;
+	margin:10px
+}
+
+.bottom input{
+	font-size:20px;
+	font-family: 'Nanum Gothic', sans-serif;
+	width:15%;
+	border:solid black 1px;
+	background-color: white;
+	padding: 10px;
+	border-radius:4px;
+}

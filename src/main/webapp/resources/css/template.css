@@ -1,0 +1,145 @@
+@charset "UTF-8";
+	body{
+	width: 100%;
+	height: 100%;
+	}
+
+	a{
+        text-decoration: none;
+    }
+    ul li{
+        list-style: none;
+    }
+    .container{
+    	background-color: #fbffff;
+    }
+    
+    .header{
+    	width:100%;
+    	top:0px;
+    	position:fixed;
+        padding:10px;
+        display: flex;
+        flex-direction: column;
+        background-image: url("/res/img/sky2.jpg");
+    }
+    
+    .header #logo{
+	    display: flex;
+	    justify-content: center;
+	    font-family: 'Arvo';
+	    font-weight: 700;
+	    color: #ed786a;
+	    text-shadow: 0.05em 0.075em 0 rgba(0, 0, 0, 0.1);
+	    font-size: 3em;
+	    letter-spacing: 13px;    
+    }
+    
+    .header #logo a{
+        color:inherit;
+    }
+    
+    .header .search_input {
+    	display: flex;
+    	justify-content: center;
+    }
+    
+    .header .search_input #name_search_frm{
+    	width:50%;
+    	text-align: center;
+    }
+    
+    .header .search_input #name_search_frm input[type="text"]{
+    	padding: 10px;
+    	width: 50%;
+    }
+    
+    .header .search_input #name_search_frm input[type="submit"]{
+    	margin-left:10px;
+    	padding:10px;
+    }
+    
+   	.c_container{
+   		font-family: 'Nanum Gothic', sans-serif;
+        margin: 0 auto;
+        width: 70%;
+        height: 100%;
+        padding-top:200px;
+    	display:flex;
+    } 
+   	
+    .c_container .flex_column{
+    	padding-left:330px;
+    	width:100%;
+    	display: flex;
+    	flex-direction: column;
+    }
+    
+    
+    .c_container .flex_column .main_section{
+    	width:100%;
+    	margin-top: 10px;
+    	border-top: 2px solid #f8f8ff;
+    	background-color: #ffffff;
+    }
+
+	.c_container .sidebar{
+		margin:15px;
+		position:fixed;
+		border:1px solid #dedede;
+		width:300px;
+		height: 500px;
+		background-color: #ffffff;
+		display: flex;
+		flex-direction: column;
+	}
+	
+	.c_container .sidebar .login_form {
+		border-bottom: 2px solid #dedede;
+	}
+	.c_container .sidebar .login_form .login_input{
+		margin:10px 15px 10px 15px;
+		border-bottom: 1px solid #dedede;
+	}
+	
+	.c_container .sidebar .login_form .login_input input{
+		padding:10px;
+		border:none;
+	}
+	
+	.c_container .sidebar .login_form .login_input input:focus{
+		outline: none;
+	}
+	
+	.c_container .sidebar .login_form .login_submit{
+		margin-bottom: 20px;
+		text-align: center;
+	}
+	
+	.c_container .sidebar .login_form .login_submit input{
+		width:100px;
+		padding: 10px;
+		border: none;
+		background-color : #bbffff;
+		border-radius: 5px;
+		
+	}
+	
+	.c_container .sidebar .move_menu{
+		text-align: center;
+		font-size: 15px;
+	}
+	
+	
+	.c_container .sidebar .move_menu .menu_div{
+		margin:10px;
+		cursor: pointer;
+		padding: 10px;
+	}
+	
+	.c_container .sidebar .move_menu .menu_div:hover{
+		background-color: #ddffff;
+	}
+	
+	
+	

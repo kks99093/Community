@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.community.my.user.model.UserVO" alias="UserVO" />
+		<typeAlias type="com.community.my.user.model.UserDMI" alias="UserDMI" />
+		<typeAlias type="com.community.my.user.model.UserParam" alias="UserParam" />
+		
+		<typeAlias type="com.community.my.board.model.BoardVO" alias="BoardVO" />
+		<typeAlias type="com.community.my.board.model.BoardDMI" alias="BoardDMI" />
+		<typeAlias type="com.community.my.board.model.BoardParam" alias="BoardParam" />
+		<typeAlias type="com.community.my.board.model.CodeVO" alias="CodeVO" />
+		<typeAlias type="com.community.my.board.model.BoardCmtVO" alias="BoardCmtVO" />
+	</typeAliases>
+</configuration>
