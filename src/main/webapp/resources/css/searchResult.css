@@ -80,7 +80,23 @@
 }
 
 .search_result .search_bottom{
+	display:flex;
+	flex-direction:column;
 	border: 1px solid black;
 	flex-grow: 1;
+	overflow-y:scroll;
 	height:400px;
 }
+
+.search_result .search_bottom #game{
+	display: flex;
+}
+
+.search_result .search_bottom #game .game_info{
+	display: flex;
+	flex-direction: column;
+}
+.search_result .search_bottom #game .game_info #que_type{
+	border-bottom: 1px solid gray;
+}
+

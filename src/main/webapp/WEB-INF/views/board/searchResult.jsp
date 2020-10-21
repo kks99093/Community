@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <div class="search_result">
 	<div class="search_top">
@@ -27,17 +28,32 @@
 		</div>
 	</div>
 	<div class="search_bottom">
-		<div class="game_info">
-			<div></div>
-			<div></div>
-			<div></div>
+		<div id="game" style="background-color:${dDTO.teamId == 100 ? '#a3cfec' : '#e2b6b3' }">
+			<div class="game_info">
+				<div id="que_type">${dDTO.que }</div>
+				<div>${dDTO.teamId == 100 ? '승리' : '패배' }</div>
+				<div>${dDTO.time[0]}분 ${dDTO.time[1]}초</div>
+			</div>
+			<div class="sum_info"></div>
+			<div class="detail_info"></div>
+			<div class="item_info"></div>
+			<div class="team_info"></div>
 		</div>
-		<div class="sum_info"></div>
-		<div class="detail_info"></div>
-		<div class="item_info"></div>
-		<div class="team_info"></div>
 	</div>
-	
-	
-	
 </div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+	
+	function champ(id){
+		axios.get('http://ddragon.leagueoflegends.com/cdn/10.21.1/data/en_US/champion.json').then(function(res){
+			championData = res.data
+			console.log(res.data.data.length)
+			 for (var i in championData) {
+		      if (championData[i].key == id) {
+		        console.log(championData[i].id)
+		      }
+			 }
+		})
+	}
+	champ(142)
+</script>

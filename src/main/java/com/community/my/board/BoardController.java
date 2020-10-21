@@ -1,19 +1,25 @@
 package com.community.my.board;
 
-import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.client.RestTemplate;
 
 import com.community.my.Const;
 import com.community.my.api.ApiUtils;
+import com.community.my.api.model.DetailDTO;
 import com.community.my.api.model.LeagueEntryDTO;
+import com.community.my.api.model.MatchDTO;
+import com.community.my.api.model.MatchlistDTO;
 import com.community.my.api.model.SummonerDTO;
 import com.community.my.board.model.BoardParam;
+
 
 @Controller
 @RequestMapping("/board")
@@ -64,15 +70,23 @@ public class BoardController {
 	
 	//닉네임 전적 검색
 	@RequestMapping(value="/nameSearch")
-	public String searchResult(Model model, SummonerDTO dto) {
-		dto = ApiUtils.nameSearch(dto);
-		LeagueEntryDTO leDTO = new LeagueEntryDTO();
+	public String searchResult(Model model, SummonerDTO smDto) {
+		smDto = ApiUtils.nameSearch(smDto);	//이름으로 정보검색
 		
-		leDTO.setSummonerId(dto.getId());
+		LeagueEntryDTO leDTO = new LeagueEntryDTO();
+		leDTO.setSummonerId(smDto.getId());	//상단에 넣을정보 받아옴
 		LeagueEntryDTO[] searchInfo = ApiUtils.summonerInfo(leDTO);
 		
+		MatchlistDTO mtlDTO = ApiUtils.recentHistory(smDto);
+		List<MatchDTO> mtDTO = ApiUtils.recentHistoryDetail(mtlDTO);
+
+		DetailDTO dDTO = ApiUtils.detailInfo(mtDTO.get(0),mtlDTO);
+
+		
+		model.addAttribute("dDTO",dDTO);
+		model.addAttribute("mtlDTO",mtlDTO);
 		model.addAttribute("rankData",searchInfo[0]);
-		model.addAttribute("sumData", dto);
+		model.addAttribute("sumData", smDto);
 		model.addAttribute("css", new String[] {"searchResult"});
 		model.addAttribute(Const.TITLE, "전적검색");
 		model.addAttribute(Const.VIEW, "board/searchResult");
