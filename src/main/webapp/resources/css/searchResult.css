@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 .search_result{
-	width: 100%;
+	width: 850px;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
@@ -82,7 +82,6 @@
 .search_result .search_bottom{
 	display:flex;
 	flex-direction:column;
-	border: 1px solid black;
 	flex-grow: 1;
 	overflow-y:scroll;
 	height:400px;
@@ -93,10 +92,63 @@
 }
 
 .search_result .search_bottom #game .game_info{
+	margin:10px;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+
+.search_result .search_bottom #game .game_info div{
+	margin-top: 3px;
+}
+
+.search_result .search_bottom #game .sum_info{
+	margin:10px;
+	display:flex;
+	flex-direction:column;
+	width: 130px;
+	text-align: center;
+}
+
+.search_result .search_bottom #game .sum_info .sumTB{
+	display: flex;	
+}
+
+.search_result .search_bottom #game .sum_info img{
+	margin: 5px;
+}
+.search_result .search_bottom #game .sum_info .spell{
 	display: flex;
 	flex-direction: column;
 }
+
+.search_result .search_bottom #game .sum_info .perk{
+	display: flex;
+	flex-direction: column;
+}
+
 .search_result .search_bottom #game .game_info #que_type{
 	border-bottom: 1px solid gray;
 }
+
+.search_result .search_bottom #game .detail_info{
+	width:280px;
+	margin:10px;
+	display: flex;
+}
+
+.search_result .search_bottom #game .detail_info .sub_info{
+	display: flex;
+	flex-direction: column;
+	margin-left:15px;
+	text-align:center;
+}
+
+.search_result .search_bottom #game .detail_info .kda{
+	margin:10px;
+	text-align:center;
+}
+
+
+
 

@@ -81,10 +81,8 @@ public class BoardController {
 		List<MatchDTO> mtDTO = ApiUtils.recentHistoryDetail(mtlDTO);
 
 		DetailDTO dDTO = ApiUtils.detailInfo(mtDTO.get(0),mtlDTO);
-
 		
 		model.addAttribute("dDTO",dDTO);
-		model.addAttribute("mtlDTO",mtlDTO);
 		model.addAttribute("rankData",searchInfo[0]);
 		model.addAttribute("sumData", smDto);
 		model.addAttribute("css", new String[] {"searchResult"});

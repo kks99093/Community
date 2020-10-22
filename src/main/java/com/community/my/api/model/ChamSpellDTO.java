@@ -1,10 +1,12 @@
 package com.community.my.api.model;
 
-public class Test2 {
-	private String id;
-	private int key;
-	private String name;
-	
+
+public class ChamSpellDTO {
+    private String id;
+    private int key;
+    private String name;
+    private RiotImageDTO image;
+    	
 	public String getId() {
 		return id;
 	}
@@ -23,7 +25,12 @@ public class Test2 {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
+	public RiotImageDTO getImage() {
+		return image;
+	}
+	public void setImage(RiotImageDTO image) {
+		this.image = image;
+	}
+    
 
 }
