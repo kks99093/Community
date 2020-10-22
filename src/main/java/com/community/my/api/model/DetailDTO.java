@@ -1,13 +1,12 @@
 package com.community.my.api.model;
 
-public class DetailDTO {
+public class DetailDTO extends ParticipantStatsDTO  {
 	private String que;
 	private int teamId;
 	private int totalKill;
 	private int kills;
 	private int deaths;
 	private int assists;
-	private int win; //승: 1 / 패: 0
 	private long visionScroe;
 	private int champLevel;
 	private int totalMinionsKilled;
@@ -23,12 +22,6 @@ public class DetailDTO {
 	
 	
 	
-	public int getWin() {
-		return win;
-	}
-	public void setWin(int win) {
-		this.win = win;
-	}
 	public int getKills() {
 		return kills;
 	}

@@ -149,6 +149,18 @@
 	text-align:center;
 }
 
+.search_result .search_bottom #game .item_info{
+	display:flex;
+	flex-direction:column;
+	margin:10px;
+}
+.search_result .search_bottom #game .item_info img{
+	width: 30px;
+	height: 30px;
+}
 
+.no_item{
+	background-color: black;
+}
 
 

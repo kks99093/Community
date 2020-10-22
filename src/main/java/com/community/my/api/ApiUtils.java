@@ -86,8 +86,7 @@ public class ApiUtils {
 		for(int i=0; i<mtDTO.getParticipants().size(); i++) {
 			
 			if(mtDTO.getParticipants().get(i).getChampionId() == champId) {
-				if(mtDTO.getParticipants().get(i).getStats().isWin()) {	dDTO.setWin(1);	}
-				else {dDTO.setWin(0);}
+				dDTO.setWin(mtDTO.getParticipants().get(i).getStats().isWin());
 				dDTO.setTeamId(mtDTO.getParticipants().get(i).getTeamId());
 				dDTO.setKills(mtDTO.getParticipants().get(i).getStats().getKills());
 				dDTO.setDeaths(mtDTO.getParticipants().get(i).getStats().getDeaths());
@@ -95,6 +94,13 @@ public class ApiUtils {
 				dDTO.setVisionScroe(mtDTO.getParticipants().get(i).getStats().getVisionScore());//시야점수
 				dDTO.setChampLevel(mtDTO.getParticipants().get(i).getStats().getChampLevel());
 				dDTO.setTotalMinionsKilled(mtDTO.getParticipants().get(i).getStats().getTotalMinionsKilled());//cs
+				dDTO.setItem0(mtDTO.getParticipants().get(i).getStats().getItem0());
+				dDTO.setItem1(mtDTO.getParticipants().get(i).getStats().getItem1());
+				dDTO.setItem2(mtDTO.getParticipants().get(i).getStats().getItem2());
+				dDTO.setItem3(mtDTO.getParticipants().get(i).getStats().getItem3());
+				dDTO.setItem4(mtDTO.getParticipants().get(i).getStats().getItem4());
+				dDTO.setItem5(mtDTO.getParticipants().get(i).getStats().getItem5());
+				dDTO.setItem6(mtDTO.getParticipants().get(i).getStats().getItem6());
 				for(int j=0; j<mtDTO.getTeams().size(); j++) {
 					if(mtDTO.getParticipants().get(i).getTeamId() == mtDTO.getTeams().get(j).getTeamId()) {
 						dDTO.setTotalKill(mtDTO.getTeams().get(j).getTowerKills());

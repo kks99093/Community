@@ -28,10 +28,10 @@
 		</div>
 	</div>
 	<div class="search_bottom">
-		<div id="game" style="background-color:${dDTO.win == 1 ? '#a3cfec' : '#e2b6b3' }">
+		<div id="game" style="background-color:${dDTO.win ? '#a3cfec' : '#e2b6b3' }">
 			<div class="game_info">
 				<div id="que_type">${dDTO.que }</div>
-				<div>${dDTO.win == 1 ? '승리' : '패배' }</div>
+				<div>${dDTO.win ? '승리' : '패배' }</div>
 				<div>${dDTO.time[0]}분 ${dDTO.time[1]}초</div>
 			</div>
 			<div class="sum_info">
@@ -64,9 +64,24 @@
 					<div>${dDTO.visionScroe}</div>
 				</div>
 			</div>
-			<div class="item_info"></div>
+			<div class="item_info">
+				<div class="line_first">
+					<img onerror="no_image()"  src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/item/${dDTO.item0}.png">
+					<img onerror="no_image()" id="img1" src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/item/${dDTO.item1}.png">
+					<img onerror="no_image()" id="img2" src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/item/${dDTO.item2}.png">
+					<img onerror="no_image()" id="img6" src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/item/${dDTO.item6}.png">
+				</div>
+				<div class="line_second">
+					<img onerror="no_image()" id="img3" src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/item/${dDTO.item3}.png">
+					<img onerror="no_image()" id="img4" src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/item/${dDTO.item4}.png">
+					<img onerror="no_image()" id="img5" src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/item/${dDTO.item5}.png">
+				</div>
+			</div>
 			<div class="team_info"></div>
 		</div>
 	</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+
+</script>
