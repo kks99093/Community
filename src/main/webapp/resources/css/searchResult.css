@@ -8,6 +8,7 @@
 }
 
 .search_result .search_top{
+	border: 1px solid #dedede;
 	height: 200px;
 	display: flex;
 }
@@ -17,13 +18,16 @@
 	flex-grow: 1;
 }
 .search_result .search_top .search_tleft .profile_img{
-	position:relative;
 	width:130px;
 	margin: 20px;
 }
+.search_result .search_top .search_tleft .profile_img img{
+	width:120px;
+	height:120px;
+}
 
 .search_result .search_top .search_tleft .profile_img .profile_level{
-	position:absolute;
+	position: relative;
 	width:44px;
 	height:24px;
 	background: url("/res/img/utils/bgLevelbox.png");
@@ -32,7 +36,7 @@
 	color: #eabd56;
 	text-align: center;
 	left: 23%;
-    bottom: 11%;
+    bottom: 15%;
 }
 .search_result .search_top .search_tleft .profile_info .profile_nm{
 	margin: 30px 0px 0px 30px;
@@ -57,7 +61,6 @@
 }
 
 .search_result .search_top .search_tright .rank_img{
-	position:relative;
 	width:130px;
 	margin: 10px;
 	text-align: center;
@@ -83,12 +86,11 @@
 	display:flex;
 	flex-direction:column;
 	flex-grow: 1;
-	overflow-y:scroll;
-	height:400px;
 }
 
 .search_result .search_bottom #game{
 	display: flex;
+	margin:5px;
 }
 
 .search_result .search_bottom #game .game_info{
@@ -96,6 +98,8 @@
 	display: flex;
 	flex-direction: column;
 	text-align: center;
+	font-size: 11px;
+	color : #5f5f5f;
 }
 
 .search_result .search_bottom #game .game_info div{
@@ -108,10 +112,26 @@
 	flex-direction:column;
 	width: 130px;
 	text-align: center;
+	font-size: 11px;
+	color : #5f5f5f;
 }
 
 .search_result .search_bottom #game .sum_info .sumTB{
 	display: flex;	
+}
+.search_result .search_bottom #game .sum_info .sumTB .icon{
+	width: 50px;
+	height: 50px;
+}
+
+.search_result .search_bottom #game .sum_info .sumTB .spell img{
+	width: 25px;
+	height:25px;
+}
+
+.search_result .search_bottom #game .sum_info .sumTB .perk img{
+	width: 25px;
+	height:25px;
 }
 
 .search_result .search_bottom #game .sum_info img{
@@ -132,7 +152,7 @@
 }
 
 .search_result .search_bottom #game .detail_info{
-	width:280px;
+	width:210px;
 	margin:10px;
 	display: flex;
 }
@@ -142,11 +162,25 @@
 	flex-direction: column;
 	margin-left:15px;
 	text-align:center;
+	font-size: 11px;
+	color : #5f5f5f;
+}
+.search_result .search_bottom #game .detail_info .sub_info #killPer{
+	color : #dc143c;
+	font-weight: 600;
 }
 
 .search_result .search_bottom #game .detail_info .kda{
 	margin:10px;
 	text-align:center;
+	font-size: 14px;
+	font-weight: bold;
+}
+.search_result .search_bottom #game .detail_info .kda #deathSc{
+	color: #c6443e;
+}
+.search_result .search_bottom #game .detail_info .kda div{
+	margin:0px 10px 10px 10px;
 }
 
 .search_result .search_bottom #game .item_info{
@@ -159,8 +193,35 @@
 	height: 30px;
 }
 
-.no_item{
-	background-color: black;
+.search_result .search_bottom #game .team_info {
+	margin:10px;
 }
 
+.search_result .search_bottom #game .team_info .blueTeam img{
+	width: 25px;
+	height: 25px;
+	margin-bottom: 5px;
+}
+
+.search_result .search_bottom #game .team_info .redTeam img{
+	width: 25px;
+	height: 25px;
+	margin-top: 5px;
+}
+
+.search_result .moreGame{
+	border: 1px solid #cdd2d2;
+    box-shadow: 0 1px #dcdfdf;
+    background: #f2f2f2;
+    border-radius: 2px;
+}
+.search_result .moreGame a{
+	display: block;
+    height: 50px;
+    color: #555e5e;
+    font-size: 13px;
+    line-height: 50px;
+    text-align: center;
+    text-decoration: none;
+}
 

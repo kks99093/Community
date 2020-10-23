@@ -5,7 +5,6 @@ import java.util.List;
 public class MatchDTO {
 	
 	private long gameid;
-	private List<ParticipantIdentityDTO>participantIdentities;
 	private int queueId;
 	private String gameType;
 	private long gameDuration;
@@ -23,12 +22,6 @@ public class MatchDTO {
 	}
 	public void setGameid(long gameid) {
 		this.gameid = gameid;
-	}
-	public List<ParticipantIdentityDTO> getParticipantIdentities() {
-		return participantIdentities;
-	}
-	public void setParticipantIdentities(List<ParticipantIdentityDTO> participantIdentities) {
-		this.participantIdentities = participantIdentities;
 	}
 	public int getQueueId() {
 		return queueId;

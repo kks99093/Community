@@ -6,26 +6,34 @@ import java.util.List;
 
 import org.springframework.web.client.RestTemplate;
 
+import com.community.my.api.model.BlueTeam;
+import com.community.my.api.model.ChamSpell;
 import com.community.my.api.model.DetailDTO;
 import com.community.my.api.model.LeagueEntryDTO;
 import com.community.my.api.model.MatchDTO;
 import com.community.my.api.model.MatchlistDTO;
 import com.community.my.api.model.PerksDTO;
+import com.community.my.api.model.RedTeam;
 import com.community.my.api.model.SummonerDTO;
-import com.community.my.api.model.ChamSpell;
 
 public class ApiUtils {
 	
-	private static String apiKey = "RGAPI-f2f5ee67-1d04-44fb-b206-f002bac58ad4";
+	private static String apiKey = "RGAPI-8126e5c1-fc06-46e7-91a6-7aa9d2c34f32";
 	
 	
 	private static RestTemplate restTemplate = new RestTemplate();
 	//id조회
-	public static SummonerDTO nameSearch(SummonerDTO smDto) {
-		String SummonerName = smDto.getName().replaceAll(" ", "%20"); //공백을 %20으로 바꿈 (api 규칙)
+	public static SummonerDTO nameSearch(SummonerDTO smDTO) {
+		String SummonerName = smDTO.getName().replaceAll(" ", "%20"); //공백을 %20으로 바꿈 (api 규칙)
 		URI url = URI.create("https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/"+SummonerName+"?api_key=" + apiKey);
-		smDto = restTemplate.getForObject(url,SummonerDTO.class);
-		return smDto;
+		smDTO = restTemplate.getForObject(url,SummonerDTO.class);
+		return smDTO;
+	}
+	//id조회 (숨겨진id)
+	public static SummonerDTO idSearch(SummonerDTO smDTO) {
+		URI url = URI.create("https://kr.api.riotgames.com/lol/summoner/v4/summoners/"+smDTO.getId()+"?api_key="+ apiKey);
+		smDTO = restTemplate.getForObject(url,SummonerDTO.class);
+		return smDTO;
 	}
 	
 	//id로 정보 조회
@@ -43,19 +51,20 @@ public class ApiUtils {
 	}
 	
 	//최근전적 상세조회
-	public static List<MatchDTO> recentHistoryDetail(MatchlistDTO mtlDTO) {
+	public static List<MatchDTO> recentHistoryDetail(MatchlistDTO mtlDTO,int min, int max) {
 		List<MatchDTO> mtDetail = new ArrayList();
-		for(int i=0; i<10; i++) {
+		
+		for(int i=min; i<max; i++) {
+			MatchDTO mtDTO = new MatchDTO(); 
 			URI url = URI.create("https://kr.api.riotgames.com/lol/match/v4/matches/"+mtlDTO.getMatches().get(i).getGameId()+"?api_key="+apiKey);
-			MatchDTO mtDTO = restTemplate.getForObject(url, MatchDTO.class);
+			mtDTO = restTemplate.getForObject(url, MatchDTO.class);
 			mtDetail.add(mtDTO);
 		}
 		return mtDetail;
 	}
 	
 	//최근전적 상세조회 정리 - que_type
-	public static DetailDTO detailInfo(MatchDTO mtDTO,MatchlistDTO mtlDTO) {
-		
+	public static DetailDTO detailInfo(MatchDTO mtDTO,MatchlistDTO mtlDTO,int matchNum) {
 		DetailDTO dDTO = new DetailDTO();
 		//1
 		switch(mtDTO.getQueueId()) {
@@ -76,9 +85,9 @@ public class ApiUtils {
 		}
 		
 		//챔프이름
-				int champId = mtlDTO.getMatches().get(0).getChampion();
+				int champId = mtlDTO.getMatches().get(matchNum).getChampion();
 				String chamSpell = "champion"; //챔피언 서치
-				String[] champ = detailInfo2(champId,chamSpell);
+				String[] champ = champSpellSearch(champId,chamSpell);
 				dDTO.setChampId(champ[0]); //영
 				dDTO.setChampNm(champ[1]);; //한
 				
@@ -86,6 +95,7 @@ public class ApiUtils {
 		for(int i=0; i<mtDTO.getParticipants().size(); i++) {
 			
 			if(mtDTO.getParticipants().get(i).getChampionId() == champId) {
+				
 				dDTO.setWin(mtDTO.getParticipants().get(i).getStats().isWin());
 				dDTO.setTeamId(mtDTO.getParticipants().get(i).getTeamId());
 				dDTO.setKills(mtDTO.getParticipants().get(i).getStats().getKills());
@@ -101,11 +111,8 @@ public class ApiUtils {
 				dDTO.setItem4(mtDTO.getParticipants().get(i).getStats().getItem4());
 				dDTO.setItem5(mtDTO.getParticipants().get(i).getStats().getItem5());
 				dDTO.setItem6(mtDTO.getParticipants().get(i).getStats().getItem6());
-				for(int j=0; j<mtDTO.getTeams().size(); j++) {
-					if(mtDTO.getParticipants().get(i).getTeamId() == mtDTO.getTeams().get(j).getTeamId()) {
-						dDTO.setTotalKill(mtDTO.getTeams().get(j).getTowerKills());
-					}
-				}
+				dDTO.setTotalKill(totalKill(mtDTO.getParticipants().get(i).getTeamId(),mtDTO)); //전체킬
+					
 			}
 		}
 
@@ -130,31 +137,34 @@ public class ApiUtils {
 			}
 		}
 		chamSpell = "summoner";
-		String[] spell1 = detailInfo2(spell1Id,chamSpell);
+		String[] spell1 = champSpellSearch(spell1Id,chamSpell);
 		String spellId1 = spell1[0];
 		String spellNm1 = spell1[1];
 		
-		String[] spell2 = detailInfo2(spell2Id,chamSpell);
+		String[] spell2 = champSpellSearch(spell2Id,chamSpell);
 		String spellId2 = spell2[0];
 		String spellNm2 = spell2[1];
 		
 		String perk0Icon = detailPerk(perk0);
 		String perkSubStyleIcon = detailPerk(perkSubStyle);
 		
-		dDTO.setSpell1Id(spellId1); //한
-		dDTO.setSpell1Nm(spellNm1);	//영
+		dDTO.setSpell1Id(spellId1); //영
+		dDTO.setSpell1Nm(spellNm1);	//한
 		dDTO.setSpell2Id(spellId2);
 		dDTO.setSpell2Nm(spellNm2);
 		dDTO.setPerk0Icon(perk0Icon);
 		dDTO.setPerkSubStyleIcon(perkSubStyleIcon);
 		
+		//팀원 챔피언
+		dDTO.setBlueTeam(blueScan(mtDTO));
+		dDTO.setRedTeam(redScan(mtDTO));
 			
 		return dDTO;
 
 	}
 	
-	//최근전적 상세조회 정리 - que_type
-	public static String[] detailInfo2(int id, String chamSpell) {
+	//챔프,스펠 id로 챔프,스펠 id,name 검색
+	public static String[] champSpellSearch(int id, String chamSpell) {
 		URI url = URI.create("http://ddragon.leagueoflegends.com/cdn/10.21.1/data/ko_KR/"+chamSpell+".json");
 		ChamSpell chamspell = restTemplate.getForObject(url, ChamSpell.class);
 		
@@ -187,7 +197,43 @@ public class ApiUtils {
 		
 		return "못받아옴";
 	}
+	//전체킬수 조회
+	public static int totalKill(int teamId, MatchDTO mtDTO) {
+		int result = 0;
+		for(int j=0; j<mtDTO.getParticipants().size(); j++) {
+			if(mtDTO.getParticipants().get(j).getTeamId() == teamId) {
+				result += mtDTO.getParticipants().get(j).getStats().getKills();
+			}
+		}
+		return result;
+	}
 	
+	//팀조회
+	public static BlueTeam blueScan(MatchDTO mtDTO) {
+		BlueTeam blueTeam = new BlueTeam();
+		String champ = "champion";
+		List<String> champList = new ArrayList();
+		for(int i=0; i<mtDTO.getParticipants().size(); i++) {
+			if(mtDTO.getParticipants().get(i).getTeamId() == 100) {
+				champList.add(champSpellSearch(mtDTO.getParticipants().get(i).getChampionId(),champ)[0]);
+			}
+		}
+		blueTeam.setChampList(champList);
+		return blueTeam;
+	}
+	
+	public static RedTeam redScan(MatchDTO mtDTO) {
+		RedTeam redTeam = new RedTeam();
+		String champ = "champion";
+		List<String> champList = new ArrayList();
+		for(int i=0; i<mtDTO.getParticipants().size(); i++) {
+			if(mtDTO.getParticipants().get(i).getTeamId() == 200) {
+				champList.add(champSpellSearch(mtDTO.getParticipants().get(i).getChampionId(),champ)[0]);
+			}
+		}
+		redTeam.setChampList(champList);
+		return redTeam;
+	}
 
 
 	//랭킹정보 조회

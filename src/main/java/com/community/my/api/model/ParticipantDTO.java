@@ -9,7 +9,6 @@ public class ParticipantDTO {
 	private List<RuneDTO>runes;
 	private ParticipantStatsDTO stats;
 	private int teamId;
-	private	ParticipantTimelineDTO timeline;
 	private int spell1Id;
 	private int spell2Id;
 	private String highestAchievedSeasonTier;
@@ -44,12 +43,6 @@ public class ParticipantDTO {
 	}
 	public void setTeamId(int teamId) {
 		this.teamId = teamId;
-	}
-	public ParticipantTimelineDTO getTimeline() {
-		return timeline;
-	}
-	public void setTimeline(ParticipantTimelineDTO timeline) {
-		this.timeline = timeline;
 	}
 	public int getSpell1Id() {
 		return spell1Id;

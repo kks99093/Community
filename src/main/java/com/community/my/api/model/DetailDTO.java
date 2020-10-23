@@ -11,6 +11,8 @@ public class DetailDTO extends ParticipantStatsDTO  {
 	private int champLevel;
 	private int totalMinionsKilled;
 	private long[] time;
+	private int min;
+	private int max;
 	private String champNm;
 	private String spell1Nm;
 	private String spell1Id;
@@ -19,9 +21,34 @@ public class DetailDTO extends ParticipantStatsDTO  {
 	private String perk0Icon;
 	private String perkSubStyleIcon;
 	private String champId;
+	private BlueTeam blueTeam;
+	private RedTeam redTeam;
 	
 	
-	
+	public int getMin() {
+		return min;
+	}
+	public void setMin(int min) {
+		this.min = min;
+	}
+	public int getMax() {
+		return max;
+	}
+	public void setMax(int max) {
+		this.max = max;
+	}
+	public BlueTeam getBlueTeam() {
+		return blueTeam;
+	}
+	public void setBlueTeam(BlueTeam blueTeam) {
+		this.blueTeam = blueTeam;
+	}
+	public RedTeam getRedTeam() {
+		return redTeam;
+	}
+	public void setRedTeam(RedTeam redTeam) {
+		this.redTeam = redTeam;
+	}
 	public int getKills() {
 		return kills;
 	}

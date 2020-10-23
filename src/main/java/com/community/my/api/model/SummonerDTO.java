@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class SummonerDTO {
 	
+	private int min;
+	private int max;
 	private String accountId;
 	private int profileIconId;
 	private long revisionDate;
@@ -12,6 +14,7 @@ public class SummonerDTO {
 	private String id;
 	private String puuid;
 	private long summonerLevel;
+	
 	
 	public String getAccountId() {
 		return accountId;

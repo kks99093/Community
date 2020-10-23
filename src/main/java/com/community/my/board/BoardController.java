@@ -1,22 +1,16 @@
 package com.community.my.board;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.community.my.Const;
-import com.community.my.api.ApiUtils;
-import com.community.my.api.model.DetailDTO;
-import com.community.my.api.model.LeagueEntryDTO;
-import com.community.my.api.model.MatchDTO;
-import com.community.my.api.model.MatchlistDTO;
+import com.community.my.api.model.GameDTO;
 import com.community.my.api.model.SummonerDTO;
 import com.community.my.board.model.BoardParam;
 
@@ -68,28 +62,30 @@ public class BoardController {
 
 	}
 	
-	//닉네임 전적 검색
+	//디테일 처리 (ajax X)
 	@RequestMapping(value="/nameSearch")
-	public String searchResult(Model model, SummonerDTO smDto) {
-		smDto = ApiUtils.nameSearch(smDto);	//이름으로 정보검색
+	public String searchResult(Model model, SummonerDTO smDTO) {
+		smDTO.setMin(-5); //시작값 설정
+		smDTO.setMax(0); //시작값 설정
+		GameDTO gameDTO = boardService.searchResult(smDTO);
 		
-		LeagueEntryDTO leDTO = new LeagueEntryDTO();
-		leDTO.setSummonerId(smDto.getId());	//상단에 넣을정보 받아옴
-		LeagueEntryDTO[] searchInfo = ApiUtils.summonerInfo(leDTO);
-		
-		MatchlistDTO mtlDTO = ApiUtils.recentHistory(smDto);
-		List<MatchDTO> mtDTO = ApiUtils.recentHistoryDetail(mtlDTO);
-
-		DetailDTO dDTO = ApiUtils.detailInfo(mtDTO.get(0),mtlDTO);
-		
-		model.addAttribute("dDTO",dDTO);
-		model.addAttribute("rankData",searchInfo[0]);
-		model.addAttribute("sumData", smDto);
+		model.addAttribute("game",gameDTO);
 		model.addAttribute("css", new String[] {"searchResult"});
 		model.addAttribute(Const.TITLE, "전적검색");
 		model.addAttribute(Const.VIEW, "board/searchResult");
 		
 		return Const.MAINTEMP;
+	}
+	
+	//게임목록 받아오기 (ajax)
+	@RequestMapping(value="/moreGame")
+	@ResponseBody
+	public GameDTO moreGame(GameDTO gameDTO, SummonerDTO smDTO){
+		smDTO.setId(gameDTO.getSumId());
+		smDTO.setMin(gameDTO.getMin());
+		smDTO.setMax(gameDTO.getMax());
+		GameDTO result = boardService.searchResult(smDTO);
+		return result;
 	}
 	
 	
