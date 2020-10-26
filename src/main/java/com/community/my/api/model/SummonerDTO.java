@@ -1,8 +1,5 @@
 package com.community.my.api.model;
 
-import lombok.Data;
-
-@Data
 public class SummonerDTO {
 	
 	private int min;
@@ -16,6 +13,18 @@ public class SummonerDTO {
 	private long summonerLevel;
 	
 	
+	public int getMin() {
+		return min;
+	}
+	public void setMin(int min) {
+		this.min = min;
+	}
+	public int getMax() {
+		return max;
+	}
+	public void setMax(int max) {
+		this.max = max;
+	}
 	public String getAccountId() {
 		return accountId;
 	}

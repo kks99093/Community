@@ -25,7 +25,6 @@ public class BoardController {
 	//자유게시판
 	@RequestMapping("/free")
 	public String freeBoard(Model model, BoardParam param) {
-		
 		model.addAttribute("data",boardService.selFreeBoardList(param));
 		model.addAttribute(Const.TITLE, "자유 게시판");
 		model.addAttribute(Const.VIEW,"board/free");
@@ -57,6 +56,7 @@ public class BoardController {
 	//글쓰기 DB등록
 	@RequestMapping(value = "/boardWR", method=RequestMethod.POST)
 	public String boardWR(BoardParam param) {
+		param.setNick_nm("ddd");
 		boardService.insFreeBoard(param);		
 		return"redirect:/";
 
@@ -65,8 +65,8 @@ public class BoardController {
 	//디테일 처리 (ajax X)
 	@RequestMapping(value="/nameSearch")
 	public String searchResult(Model model, SummonerDTO smDTO) {
-		smDTO.setMin(-5); //시작값 설정
-		smDTO.setMax(0); //시작값 설정
+		smDTO.setMin(0); //시작값 설정
+		smDTO.setMax(5); //시작값 설정
 		GameDTO gameDTO = boardService.searchResult(smDTO);
 		
 		model.addAttribute("game",gameDTO);

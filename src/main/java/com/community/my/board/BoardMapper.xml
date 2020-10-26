@@ -12,7 +12,10 @@
 	<!-- 게시판 리스트 Select -->
 	<select id="selFreeBoardList" parameterType="BoardParam" resultType="BoardDMI">
 		SELECT i_board,title,content,nick_nm,r_dt,i_category 
-		FROM free_board
+		FROM free_board 
+		<if test="i_board != 0">
+		 WHERE i_board  = ${i_board}
+		</if>
 	</select>
 	<!-- 게시판 카테고리 Select -->
 	<select id="selCategory" parameterType="CodeVO" resultType="CodeVO">

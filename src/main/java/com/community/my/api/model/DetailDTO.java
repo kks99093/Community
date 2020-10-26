@@ -7,7 +7,7 @@ public class DetailDTO extends ParticipantStatsDTO  {
 	private int kills;
 	private int deaths;
 	private int assists;
-	private long visionScroe;
+	private long visionScore;
 	private int champLevel;
 	private int totalMinionsKilled;
 	private long[] time;
@@ -21,10 +21,24 @@ public class DetailDTO extends ParticipantStatsDTO  {
 	private String perk0Icon;
 	private String perkSubStyleIcon;
 	private String champId;
+	private String timeDate;
 	private BlueTeam blueTeam;
 	private RedTeam redTeam;
 	
 	
+	
+	public String getTimeDate() {
+		return timeDate;
+	}
+	public void setTimeDate(String timeDate) {
+		this.timeDate = timeDate;
+	}
+	public long getVisionScore() {
+		return visionScore;
+	}
+	public void setVisionScore(long visionScore) {
+		this.visionScore = visionScore;
+	}
 	public int getMin() {
 		return min;
 	}
@@ -68,10 +82,10 @@ public class DetailDTO extends ParticipantStatsDTO  {
 		this.assists = assists;
 	}
 	public long getVisionScroe() {
-		return visionScroe;
+		return visionScore;
 	}
 	public void setVisionScroe(long visionScroe) {
-		this.visionScroe = visionScroe;
+		this.visionScore = visionScroe;
 	}
 	public int getChampLevel() {
 		return champLevel;

@@ -48,34 +48,28 @@ public class BoardService {
 	//
 	public GameDTO searchResult(SummonerDTO smDTO) {
 		GameDTO gameDTO = new GameDTO();
-		int min = smDTO.getMin()+5;
-		int max = smDTO.getMax()+5;
-		
 		if(smDTO.getId() == null) {
 			smDTO = ApiUtils.nameSearch(smDTO);	//이름으로 정보검색
 		}else {
 			smDTO = ApiUtils.idSearch(smDTO);
 		}
-		
 		LeagueEntryDTO leDTO = new LeagueEntryDTO();
 		leDTO.setSummonerId(smDTO.getId());	//상단에 넣을정보 받아옴
-		
 		LeagueEntryDTO[] searchInfo = ApiUtils.summonerInfo(leDTO); 
-		
 		MatchlistDTO mtlDTO = ApiUtils.recentHistory(smDTO); //전적 리스트
 		
-		List<MatchDTO> mtDTO = ApiUtils.recentHistoryDetail(mtlDTO,min,max); //전적을 리스트로 상세전적 검색
+		mtlDTO.getMatches().get(0).getTimestamp();
+		List<MatchDTO> mtDTO = ApiUtils.recentHistoryDetail(mtlDTO,smDTO.getMin(),smDTO.getMax()); //전적을 리스트로 상세전적 검색
 
 		List<DetailDTO> dDTOList = new ArrayList();
 		for(int i=0; i<5; i++) {
 			DetailDTO dDTO = new DetailDTO();
-			dDTO = ApiUtils.detailInfo(mtDTO.get(i),mtlDTO, i+min);
+			dDTO = ApiUtils.detailInfo(mtDTO.get(i),mtlDTO, i+smDTO.getMin());
 			dDTOList.add(dDTO);
+			
 		}
 		
 		gameDTO.setdDTOList(dDTOList);
-		gameDTO.setMin(min);
-		gameDTO.setMax(max);
 		gameDTO.setMtDTO(mtDTO);
 		gameDTO.setMtlDTO(mtlDTO);
 		gameDTO.setSearchInfo(searchInfo);

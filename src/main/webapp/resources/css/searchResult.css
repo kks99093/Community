@@ -82,18 +82,18 @@
 	color: gray;
 }
 
-.search_result .search_bottom{
+.search_result #search_bottom{
 	display:flex;
 	flex-direction:column;
 	flex-grow: 1;
 }
 
-.search_result .search_bottom #game{
+.search_result #search_bottom #game{
 	display: flex;
 	margin:5px;
 }
 
-.search_result .search_bottom #game .game_info{
+.search_result #search_bottom #game .game_info{
 	margin:10px;
 	display: flex;
 	flex-direction: column;
@@ -102,11 +102,11 @@
 	color : #5f5f5f;
 }
 
-.search_result .search_bottom #game .game_info div{
+.search_result #search_bottom #game .game_info div{
 	margin-top: 3px;
 }
 
-.search_result .search_bottom #game .sum_info{
+.search_result #search_bottom #game .sum_info{
 	margin:10px;
 	display:flex;
 	flex-direction:column;
@@ -116,48 +116,48 @@
 	color : #5f5f5f;
 }
 
-.search_result .search_bottom #game .sum_info .sumTB{
+.search_result #search_bottom #game .sum_info .sumTB{
 	display: flex;	
 }
-.search_result .search_bottom #game .sum_info .sumTB .icon{
+.search_result #search_bottom #game .sum_info .sumTB .icon{
 	width: 50px;
 	height: 50px;
 }
 
-.search_result .search_bottom #game .sum_info .sumTB .spell img{
+.search_result #search_bottom #game .sum_info .sumTB .spell img{
 	width: 25px;
 	height:25px;
 }
 
-.search_result .search_bottom #game .sum_info .sumTB .perk img{
+.search_result #search_bottom #game .sum_info .sumTB .perk img{
 	width: 25px;
 	height:25px;
 }
 
-.search_result .search_bottom #game .sum_info img{
+.search_result #search_bottom #game .sum_info img{
 	margin: 5px;
 }
-.search_result .search_bottom #game .sum_info .spell{
+.search_result #search_bottom #game .sum_info .spell{
 	display: flex;
 	flex-direction: column;
 }
 
-.search_result .search_bottom #game .sum_info .perk{
+.search_result #search_bottom #game .sum_info .perk{
 	display: flex;
 	flex-direction: column;
 }
 
-.search_result .search_bottom #game .game_info #que_type{
+.search_result #search_bottom #game .game_info #que_type{
 	border-bottom: 1px solid gray;
 }
 
-.search_result .search_bottom #game .detail_info{
+.search_result #search_bottom #game .detail_info{
 	width:210px;
 	margin:10px;
 	display: flex;
 }
 
-.search_result .search_bottom #game .detail_info .sub_info{
+.search_result #search_bottom #game .detail_info .sub_info{
 	display: flex;
 	flex-direction: column;
 	margin-left:15px;
@@ -165,57 +165,57 @@
 	font-size: 11px;
 	color : #5f5f5f;
 }
-.search_result .search_bottom #game .detail_info .sub_info #killPer{
+.search_result #search_bottom #game .detail_info .sub_info #killPer{
 	color : #dc143c;
 	font-weight: 600;
 }
 
-.search_result .search_bottom #game .detail_info .kda{
+.search_result #search_bottom #game .detail_info .kda{
 	margin:10px;
 	text-align:center;
 	font-size: 14px;
 	font-weight: bold;
 }
-.search_result .search_bottom #game .detail_info .kda #deathSc{
+.search_result #search_bottom #game .detail_info .kda #deathSc{
 	color: #c6443e;
 }
-.search_result .search_bottom #game .detail_info .kda div{
+.search_result #search_bottom #game .detail_info .kda div{
 	margin:0px 10px 10px 10px;
 }
 
-.search_result .search_bottom #game .item_info{
+.search_result #search_bottom #game .item_info{
 	display:flex;
 	flex-direction:column;
 	margin:10px;
 }
-.search_result .search_bottom #game .item_info img{
+.search_result #search_bottom #game .item_info img{
 	width: 30px;
 	height: 30px;
 }
 
-.search_result .search_bottom #game .team_info {
+.search_result #search_bottom #game .team_info {
 	margin:10px;
 }
 
-.search_result .search_bottom #game .team_info .blueTeam img{
+.search_result #search_bottom #game .team_info .blueTeam img{
 	width: 25px;
 	height: 25px;
 	margin-bottom: 5px;
 }
 
-.search_result .search_bottom #game .team_info .redTeam img{
+.search_result #search_bottom #game .team_info .redTeam img{
 	width: 25px;
 	height: 25px;
 	margin-top: 5px;
 }
 
-.search_result .moreGame{
+.search_result #moreButton{
 	border: 1px solid #cdd2d2;
     box-shadow: 0 1px #dcdfdf;
     background: #f2f2f2;
     border-radius: 2px;
 }
-.search_result .moreGame a{
+.search_result #moreButton a{
 	display: block;
     height: 50px;
     color: #555e5e;

@@ -35,7 +35,7 @@
 	    <beans:property name="maximumPoolSize" value="10" />
 	    <beans:property name="idleTimeout" value="5000" />
 	    
-	    <beans:property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/bucket?characterEncoding=UTF-8"/>
+	    <beans:property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/community?characterEncoding=UTF-8"/>
 		<beans:property name="username" value="root"/>
 		<beans:property name="password" value="koreait2020"/>
 	</beans:bean>

@@ -1,6 +1,8 @@
 package com.community.my.api;
 
 import java.net.URI;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,21 +20,31 @@ import com.community.my.api.model.SummonerDTO;
 
 public class ApiUtils {
 	
-	private static String apiKey = "RGAPI-8126e5c1-fc06-46e7-91a6-7aa9d2c34f32";
+	private static String apiKey = "RGAPI-bf9e1324-1b72-400b-93f5-1abf1db0ddb9";
 	
 	
 	private static RestTemplate restTemplate = new RestTemplate();
-	//id조회
+	//id조회 (이름검색)
 	public static SummonerDTO nameSearch(SummonerDTO smDTO) {
+		SummonerDTO resultSmDTO = new SummonerDTO();
 		String SummonerName = smDTO.getName().replaceAll(" ", "%20"); //공백을 %20으로 바꿈 (api 규칙)
 		URI url = URI.create("https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/"+SummonerName+"?api_key=" + apiKey);
-		smDTO = restTemplate.getForObject(url,SummonerDTO.class);
+		resultSmDTO = restTemplate.getForObject(url,SummonerDTO.class);
+		smDTO.setId(resultSmDTO.getId());
+		smDTO.setAccountId(resultSmDTO.getAccountId());
+		smDTO.setProfileIconId(resultSmDTO.getProfileIconId());
+		smDTO.setSummonerLevel(resultSmDTO.getSummonerLevel());
 		return smDTO;
 	}
 	//id조회 (숨겨진id)
 	public static SummonerDTO idSearch(SummonerDTO smDTO) {
+		SummonerDTO resultSmDTO = new SummonerDTO();
 		URI url = URI.create("https://kr.api.riotgames.com/lol/summoner/v4/summoners/"+smDTO.getId()+"?api_key="+ apiKey);
-		smDTO = restTemplate.getForObject(url,SummonerDTO.class);
+		resultSmDTO = restTemplate.getForObject(url,SummonerDTO.class);
+		smDTO.setAccountId(resultSmDTO.getAccountId());
+		smDTO.setName(resultSmDTO.getName());
+		smDTO.setProfileIconId(resultSmDTO.getProfileIconId());
+		smDTO.setSummonerLevel(resultSmDTO.getSummonerLevel());
 		return smDTO;
 	}
 	
@@ -53,7 +65,6 @@ public class ApiUtils {
 	//최근전적 상세조회
 	public static List<MatchDTO> recentHistoryDetail(MatchlistDTO mtlDTO,int min, int max) {
 		List<MatchDTO> mtDetail = new ArrayList();
-		
 		for(int i=min; i<max; i++) {
 			MatchDTO mtDTO = new MatchDTO(); 
 			URI url = URI.create("https://kr.api.riotgames.com/lol/match/v4/matches/"+mtlDTO.getMatches().get(i).getGameId()+"?api_key="+apiKey);
@@ -158,7 +169,11 @@ public class ApiUtils {
 		//팀원 챔피언
 		dDTO.setBlueTeam(blueScan(mtDTO));
 		dDTO.setRedTeam(redScan(mtDTO));
-			
+		
+		//타임스탬프
+		String timeDate = stampToDate(mtDTO.getGameCreation());
+		dDTO.setTimeDate(timeDate);
+
 		return dDTO;
 
 	}
@@ -248,6 +263,13 @@ public class ApiUtils {
 			list[i].setSummonerLevel(dto.getSummonerLevel());
 		}
 		return list;
+	}
+	
+	//타임스탬프 날짜 변환
+	public static String stampToDate(long timeStamp) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String sd = sdf.format(new Date(Long.parseLong(String.valueOf(timeStamp))));
+		return sd;
 	}
 	
 }

@@ -10,10 +10,10 @@
 				<input type="text" name="title">
 			</div>
 			<div class="group">
-				<select name="group" id="category">
+				<select name="i_category" id="category">
                     <option value="0">카테고리</option>
-                    <c:forEach items="${category }" var="cg">
-                		<option value="${cg.i_category }">${cg.category}</option>
+                    <c:forEach items="${category}" var="cg">
+                		<option value="${cg.i_category}">${cg.category}</option>
                 	</c:forEach>
                 </select>
                   

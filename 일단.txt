@@ -1,6 +1,28 @@
-1. 솔랭 승패 시간
-2.레벨 챔프 스펠 대표룬
-3. k/d/a 평점 cs 킬관여
-5.아이템 
-6.매칭상대
+var div = document.createElement('div')
+        div.setAttribute('class','red')
+        con.appendChild(div)
 
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+let game = document.createElement('div')
+game.setAttribute('id','game')
+game.style.backgroundColor =  res.data.dDTOList[0].win == true ? '#a3cfec' : '#e2b6b3'
+game.style.borderColor = res.data.dDTOList[0].win == true ? '#99b9cf' : '#cea7a7'
+
+let game_info = document.createElement('div')
+game_info.setAttribute('class','game_info')
+
+let que_type = document.createElement('div')
+que_type.innerHTML = res.datadDTOList[0].que
+
+let win_color = document.createElement('div')
+win_color.style.color = res.data.dDTOList[0].win == true ? '#1a78ae' : '#c6443e'
+win_color.innerHTML = res.data.dDTOList[0].win == true ? '승리' : '패배'
+
+let game_time = document.createElement('div')
+game_time.innerHTML = res.data.dDTOList[0].time[0]+ '분 ' + res.data.dDTOList[0].time[1] + '초'
+
+game.appendChild(game_info)
+game.appendChild(que_type)
+game.appendChild(win_color)
+game.appendChild(game_time)
+search_bottom.appendChild(game)
