@@ -58,6 +58,7 @@ public class FileUpload {
                    json.addProperty("fileName", fileName);
                    json.addProperty("url", fileUrl);
                    
+                   System.out.println(fileUrl);
                    printWriter.println(json);
                }catch(IOException e){
                    e.printStackTrace();

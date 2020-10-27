@@ -5,7 +5,7 @@
 	<div class="main_borders">
 		<div class="left_border">
 		<table>
-			<c:forEach items="${ranking}" begin="0" end="19" var="item">
+			<c:forEach items="${ranking}" begin="0" end="14" var="item">
 				<tr>
 					<td><img alt="이미지없음" src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/profileicon/${item.profileIconId}.png" width="30px" height="30px"></td>
 					<td onclick="goSearch('${item.summonerName}')">${item.summonerName }</td>

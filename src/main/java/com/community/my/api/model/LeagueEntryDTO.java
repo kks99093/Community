@@ -7,6 +7,7 @@ public class LeagueEntryDTO {
 	private String queueType;	
 	private String tier;	
 	private String rank;	
+	private int ranking;
 	private int leaguePoints;	
 	private int wins;
 	private int losses;
@@ -20,6 +21,12 @@ public class LeagueEntryDTO {
 	
 	
 	
+	int getRanking() {
+		return ranking;
+	}
+	void setRanking(int ranking) {
+		this.ranking = ranking;
+	}
 	public long getSummonerLevel() {
 		return summonerLevel;
 	}

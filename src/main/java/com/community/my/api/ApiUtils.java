@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.LineIterator;
 import org.springframework.web.client.RestTemplate;
 
 import com.community.my.api.model.BlueTeam;
@@ -20,7 +21,7 @@ import com.community.my.api.model.SummonerDTO;
 
 public class ApiUtils {
 	
-	private static String apiKey = "RGAPI-bf9e1324-1b72-400b-93f5-1abf1db0ddb9";
+	private static String apiKey = "RGAPI-9ffdbcc2-7289-4250-9999-e2fbb153be88";
 	
 	
 	private static RestTemplate restTemplate = new RestTemplate();
@@ -256,7 +257,7 @@ public class ApiUtils {
 		URI url = URI.create("https://kr.api.riotgames.com/lol/league-exp/v4/entries/RANKED_SOLO_5x5/CHALLENGER/I?page=1&api_key="+apiKey);
 		LeagueEntryDTO[] list = restTemplate.getForObject(url, LeagueEntryDTO[].class);
 		SummonerDTO dto = new SummonerDTO();
-		for(int i=0; i<20; i++) {
+		for(int i=0; i<15; i++) {
 			dto.setName(list[i].getSummonerName());
 			dto = nameSearch(dto);
 			list[i].setProfileIconId(dto.getProfileIconId());

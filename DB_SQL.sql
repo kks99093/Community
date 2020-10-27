@@ -36,7 +36,7 @@ SELECT i_category, category FROM t_category;
 
 CREATE TABLE board_cmt(
 	i_cmt INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	i_board INT UNSIGNED,
+	i_board INT UNSIGNED NOT NULL,
 	c_content VARCHAR(200) NOT NULL,
 	nick_nm VARCHAR(10) NOT NULL,
 	r_dt DATETIME DEFAULT NOW(),

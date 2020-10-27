@@ -22,10 +22,11 @@
 		SELECT i_category, category FROM t_category
 	</select>
 	<!-- 게시판 댓글 Select -->
-	<select id="selBoardCmt" parameterType="BoardParam" resultType="CodeVO">
+	<select id="selBoardCmt" parameterType="BoardParam" resultType="BoardCmtVO">
 		SELECT i_cmt, c_content, nick_nm, r_dt FROM board_cmt 
 		WHERE i_board = #{i_board};
 	</select>
+	
 	
 	
 	

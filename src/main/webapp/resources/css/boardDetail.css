@@ -11,6 +11,8 @@
 .detail_header{
 	display: flex;
 	flex-direction: column;
+	background-color: #ffffff;
+	box-shadow: 0 1px 3px 0 rgba(0,0,0,.15);
 }
 
 .detail_title{
@@ -56,4 +58,57 @@
 
 .vote button:hover{
 	cursor: pointer;
+}
+.free_Detail .cmtScreen{
+	margin-top: 15px;
+	width: 100%;
+	border:1px solid #dedede;
+	background-color: #ffffff;
+	box-shadow: 0 1px 3px 0 rgba(0,0,0,.15);
+}
+
+.free_Detail .cmtScreen .cmt_title{
+	font-size:20px;
+	margin: 10px;
+	font-size: bold;
+}
+.free_Detail .cmtScreen .cmt{
+	width:100%;
+	border-top: 2px solid #dedede;
+	margin:0 10px 10px 0;
+	display: flex;
+	line-height: 25px;
+}
+
+.free_Detail .cmtScreen .cmt .recommned{
+	margin:10px;
+	display: flex;
+    align-items: center;
+} 
+
+.free_Detail .cmtScreen .cmt .cmtMain{
+	margin-left:10px;
+	display: flex;
+	flex-direction: column;
+}
+.free_Detail .cmtScreen .cmt .cmtMain .cmtNm{
+	margin-top:8px;
+	line-height: 17px;
+	font-weight: 700;
+	font-size:14px;
+}
+.free_Detail .cmtScreen .cmt .cmtMain .cmtNm .cmt_r_dt{
+	border-left: 1px solid #dedede;
+	padding-left:10px;
+	font-size:14px;
+	color: #7b858e;
+}
+
+.free_Detail .cmtScreen .cmt .cmtMain .cmtContent{
+	margin-top: 8px;
+}
+
+.free_Detail .cmtScreen .cmt .cmtMain .l_cmtIns{
+	margin-top:8px;
+	color: #7b858e;
 }

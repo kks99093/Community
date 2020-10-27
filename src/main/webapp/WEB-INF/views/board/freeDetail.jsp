@@ -16,16 +16,27 @@
 					<div>추천수</div>
 				</div>
 			</div>
+			<div class="detail_content">
+				${content[0].content }
+			</div>
+			<div class="vote">
+				<button>추천 :23</button>
+			</div>
 	</div>
-	<div class="detail_content">
-		${content[0].content }
-	</div>
-	<div class="vote">
-		<button>추천 :23</button>
-	</div>
-	<div>
+	
+	<div class="cmtScreen">
+		<div class="cmt_title">댓글</div>
 		<c:forEach items="${cmt}" var="item">
-			<div>글쓴이 : ${item.nick_nm}, 코멘트: ${item.c_content} 날짜${item.r_dt} </div>
+			<div class="cmt">
+				<div class="recommned">
+					추천수
+				</div>
+				<div class="cmtMain">
+					<div class="cmtNm">${item.nick_nm} <span class="cmt_r_dt">${item.r_dt }</span></div>
+					<div class="cmtContent"> ${item.c_content }</div>
+					<div class="l_cmtIns">답글달기</div>
+				</div>
+			</div>
 		</c:forEach>
 	</div>
 </div>
