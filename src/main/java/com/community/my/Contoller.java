@@ -15,6 +15,7 @@ public class Contoller {
 
 	@RequestMapping(value="")
 	public String test(Model model) {
+	
 		model.addAttribute("ranking",ApiUtils.getRanking());
 		model.addAttribute("css", new String[] {"template", "main"});
 		model.addAttribute(Const.TITLE, "메인");

@@ -1,9 +1,11 @@
 package com.community.my.user;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,10 +27,10 @@ public class UserController {
 	
 	//로그인
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(Model model, UserParam param, RedirectAttributes ra, HttpSession hs) {
+	public String login(Model model, UserParam param, RedirectAttributes ra, HttpSession hs, HttpServletRequest request) {
 		int result = userService.login(param, hs);
 		String msg = null;
-		
+		String lastPage = "/";
 		switch (result) {
 		case Const.NO_ID:
 			msg= "아이디가 없습니다";
@@ -37,13 +39,22 @@ public class UserController {
 			msg = "비밀번호가 틀립니다";
 			break;
 		case Const.SUCCESS:
+			lastPage = request.getHeader("Referer");
 			break;
 		}
 
 		ra.addFlashAttribute("msg",msg);
-
-		return "redirect:/" ;
+		return "redirect:"+lastPage;
 	}
+	
+	//로그아웃
+	@RequestMapping(value = "/logout")
+	public String logout(HttpSession hs, HttpServletRequest request) {
+		String lastPage = request.getHeader("Referer");
+		hs.invalidate();
+		return "redirect:"+lastPage;
+	}
+	
 	
 	//가입 View
 	@RequestMapping(value = "/join", method = RequestMethod.GET)

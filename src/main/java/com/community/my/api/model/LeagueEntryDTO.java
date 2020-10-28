@@ -1,5 +1,6 @@
 package com.community.my.api.model;
 
+
 public class LeagueEntryDTO {
 	private String leagueId; 	
 	private String summonerId;	
@@ -19,12 +20,10 @@ public class LeagueEntryDTO {
 	private boolean inactive;
 	private MiniSeriesDTO miniSeries;
 	
-	
-	
-	int getRanking() {
+	public int getRanking() {
 		return ranking;
 	}
-	void setRanking(int ranking) {
+	public void setRanking(int ranking) {
 		this.ranking = ranking;
 	}
 	public long getSummonerLevel() {

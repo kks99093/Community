@@ -34,16 +34,45 @@
 	            </footer>
 	        </div>
 			<div class="sidebar">
-				<c:if test="${login_user.i_user == null }">
-					<div class="login_form">
-						<form id="login_frm" action="/user/login" method="post" onsubmit="return login_chk()">
-							<p>${msg}</p>
-				     		<div class="login_input"><input type="text" name="user_id" placeholder="아이디"></div>
-				     		<div class="login_input"><input type="password" name="user_pw" placeholder="비밀번호"></div>
-				     		<div class="login_submit"><input type="submit" value="로그인"></div>
-						</form>
-					</div>
-				</c:if>
+				<c:choose>
+					<c:when test="${login_user.i_user == null }">
+						<div class="login_form">
+							<form id="login_frm" action="/user/login" method="post" onsubmit="return login_chk()">
+								<p>${msg}</p>
+					     		<div class="login_input"><input type="text" name="user_id" placeholder="아이디"></div>
+					     		<div class="login_input"><input type="password" name="user_pw" placeholder="비밀번호"></div>
+					     		<div class="login_submit"><input type="submit" value="로그인"></div>
+							</form>
+							<div class="join"><a href="/user/join">회원가입</a></div>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div class="login_userInfo">
+							<div class="login_userFrofile">
+								<div class="profileImg">
+									<c:choose>
+										<c:when test="${login_user.profile_img == null }">
+											<div class="userFrofile"><img src="/res/img/default_img.jpg"></div>
+										</c:when>
+										<c:otherwise>
+											<div class="userFrofile"><img src="/res/img/default_img.jpg"></div>
+										</c:otherwise>
+									</c:choose>
+									<div class="profileImgUpd"><a href="/board/profileImgUpd">이미지 수정</a></div>
+								</div>
+								<div class="user_nickNm">${login_user.nick_nm}</div>
+							</div>
+							<div class="login_userMy">
+								<button class="user_myBoard" onclick="myBoardSel()">내 글</button>
+								<button class="user_myCmt" onclick="myCmtSel()">내 댓글</button>
+								<button class="user_myFavorite" onclick="myFavoriteSel()">좋아요</button>
+							</div>
+							<div>
+								<a href="/user/logout">로그아웃</a>
+							</div>
+						</div>
+					</c:otherwise>
+				</c:choose>
 				<div class="move_menu">
 					<div class="menu_div" onclick="home()">홈</div>
 					<div class="menu_div" onclick="freeBoard()">자유</div>
@@ -54,7 +83,6 @@
 	    </div>
     </div>
     <script>
-
 	    function login_chk(){
 	    	if(login_frm.user_id.value.length < 1){
 	    		alert('아이디를 재대로 입력해주세요')
@@ -67,6 +95,18 @@
 	    	}
 	    	
 	    	return true
+	    }
+	    
+	    function myBoardSel(){
+	    	location.href= '/board/myBoardSel?i_user='
+	    }
+	    
+		function myCmtSel(){
+			location.href= '/board/myCmtSel'
+	    }
+		
+		function myFavoriteSel(){
+			location.href= '/board/myFavoriteSel'
 	    }
 	    
 	    function freeBoard(){

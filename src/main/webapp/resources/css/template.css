@@ -21,7 +21,7 @@
         padding:10px;
         display: flex;
         flex-direction: column;
-        background-image: url("/res/img/sky2.jpg");
+        background-color:#fbffff;
         z-index:2;
     }
     
@@ -127,6 +127,70 @@
 		
 	}
 	
+	.c_container .sidebar .login_userInfo{
+		border-bottom: 2px solid #dedede;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+	
+	.c_container .sidebar .login_userInfo .login_userFrofile{
+		display: flex;
+	}
+	
+	.c_container .sidebar .login_userInfo .login_userFrofile .profileImg {
+		display: flex;
+		flex-direction: column;
+	}
+	
+	.c_container .sidebar .login_userInfo .login_userFrofile .profileImg .userFrofile{
+		margin:10px;
+		width: 50px;
+		height: 50px;
+	}
+	
+	.c_container .sidebar .login_userInfo .login_userFrofile .profileImg .userFrofile img{
+		width: 100%;
+	}
+	.c_container .sidebar .login_userInfo .login_userFrofile .user_nickNm{
+		display:block;
+		margin-top:10px;
+	}
+	
+	.c_container .sidebar .login_userInfo .login_userMy{
+		margin:10px;
+		display: flex;
+	}
+	
+	.c_container .sidebar .login_userInfo .login_userMy button{
+		background-color: #ffffff;
+		border: 1px solid #ed786a;
+		border-radius:10px;
+		width:30%;
+		height:35px;
+		margin: 10px;
+		cursor: pointer;
+	}
+	
+	.c_container .sidebar .login_userInfo .login_userMy .user_myBoard {
+		background-color: #fef2f1;
+	}
+	
+	.c_container .sidebar .login_userInfo .login_userMy .user_myCmt{
+		background-color: #fef2f1;
+	}
+	
+	.c_container .sidebar .login_userInfo .login_userMy .user_myFavorite{
+		background-color: #ed786a;
+	}
+	
+	.c_container .sidebar .join{
+		margin: 10px;
+	}
+	
+	.c_container .sidebar .join a{
+		color:#16a085;
+	}
 	.c_container .sidebar .move_menu{
 		text-align: center;
 		font-size: 15px;

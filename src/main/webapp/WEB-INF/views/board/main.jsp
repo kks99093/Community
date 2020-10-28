@@ -7,6 +7,7 @@
 		<table>
 			<c:forEach items="${ranking}" begin="0" end="14" var="item">
 				<tr>
+					<td>${item.ranking }. </td>
 					<td><img alt="이미지없음" src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/profileicon/${item.profileIconId}.png" width="30px" height="30px"></td>
 					<td onclick="goSearch('${item.summonerName}')">${item.summonerName }</td>
 					<td><img alt="이미지 없음" src="/res/img/emblems/${item.tier}.png" width="30px" height="30px"></td>

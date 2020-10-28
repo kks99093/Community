@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+.profileUpdatePage{
+	width:70%;
+	height: 400px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.profileUpdatePage .profileUpload{
+	display: flex;
+	flex-direction: column;
+}
+.profileUpdatePage .profileUpload img{
+	width: 150px;
+	height: 150px;
+}
+
+.profileUpdatePage .p_userInfo{
+	display: flex;
+	flex-direction: column;
+}

@@ -22,6 +22,7 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	
+	
 	//자유게시판
 	@RequestMapping("/free")
 	public String freeBoard(Model model, BoardParam param) {
@@ -42,6 +43,16 @@ public class BoardController {
 		model.addAttribute("css", new String[] {"boardDetail"});
 		return Const.MAINTEMP;
 	}
+	
+	//프로필 수정
+	@RequestMapping(value = "/profileImgUpd")
+	public String profileUpdate(Model model) {
+		model.addAttribute(Const.TITLE, "프로필 수정");
+		model.addAttribute(Const.VIEW,"/board/profileUpdate");
+		model.addAttribute("css", new String[] {"profileUpdate"});
+		return Const.MAINTEMP;
+	}
+
 	
 	//글쓰기 View
 	@RequestMapping(value = "/boardWR", method=RequestMethod.GET)

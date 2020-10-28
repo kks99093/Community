@@ -262,6 +262,7 @@ public class ApiUtils {
 			dto = nameSearch(dto);
 			list[i].setProfileIconId(dto.getProfileIconId());
 			list[i].setSummonerLevel(dto.getSummonerLevel());
+			list[i].setRanking(i+1);
 		}
 		return list;
 	}
