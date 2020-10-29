@@ -134,13 +134,29 @@
 		justify-content: center;
 	}
 	
+	.c_container .sidebar .login_userInfo a{
+		font-size:15px;
+		color : #82cecc; 
+	}
+	
+	.c_container .sidebar .login_userInfo .logout{
+		margin:10px;
+	}
+	
 	.c_container .sidebar .login_userInfo .login_userFrofile{
 		display: flex;
 	}
 	
+	
+	
 	.c_container .sidebar .login_userInfo .login_userFrofile .profileImg {
 		display: flex;
 		flex-direction: column;
+		margin: 10px 10px 0 10px;
+	}
+	
+	.c_container .sidebar .login_userInfo .login_userFrofile .profileImg .profileImgUpd{
+		margin-top:10px;
 	}
 	
 	.c_container .sidebar .login_userInfo .login_userFrofile .profileImg .userFrofile{
@@ -152,9 +168,11 @@
 	.c_container .sidebar .login_userInfo .login_userFrofile .profileImg .userFrofile img{
 		width: 100%;
 	}
+
+	
 	.c_container .sidebar .login_userInfo .login_userFrofile .user_nickNm{
 		display:block;
-		margin-top:10px;
+		margin:20px 0 0 20px;
 	}
 	
 	.c_container .sidebar .login_userInfo .login_userMy{

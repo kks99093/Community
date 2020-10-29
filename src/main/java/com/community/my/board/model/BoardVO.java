@@ -4,17 +4,24 @@ public class BoardVO {
 	private int i_board;
 	private String title;
 	private String content;
-	private String nick_nm;
+	private int i_user;
 	private String r_dt;
+	private int cnt;
 	private int i_category;
 	
 	
-	
-	public String getNick_nm() {
-		return nick_nm;
+	public int getCnt() {
+		return cnt;
 	}
-	public void setNick_nm(String nick_nm) {
-		this.nick_nm = nick_nm;
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
+	
+	public int getI_user() {
+		return i_user;
+	}
+	public void setI_user(int i_user) {
+		this.i_user = i_user;
 	}
 	public String getR_dt() {
 		return r_dt;

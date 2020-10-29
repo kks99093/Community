@@ -12,7 +12,10 @@ import com.community.my.board.model.CodeVO;
 @Mapper
 public interface BoardMapper {
 	int insFreeBoard(BoardParam param);
-	
+	int insLike(BoardParam param);
+	int delLike(BoardParam param);
+	BoardDMI selLike(BoardParam param);
+	BoardDMI selLikeCnt(BoardParam param);
 	List<BoardDMI> selFreeBoardList(BoardParam param);
 	List<CodeVO> selCategory();
 	

@@ -13,14 +13,18 @@
 				<div class="header_right">
 					<div>조회수</div>
 					<div>댓글수</div>
-					<div>추천수</div>
 				</div>
 			</div>
+			<c:if test="${login_user.i_user == content[0].i_user}">
+				<div class="writeReg">
+					<button onclick="boardReg(${content[0].i_board})">수정</button> <button onclick="boardDel(${content[0].i_board})">삭제</button>
+				</div>
+			</c:if>
 			<div class="detail_content">
 				${content[0].content }
 			</div>
 			<div class="vote">
-				<button>추천 :23</button>
+				<button id="likeCnt" onclick="insDelLike(${content[0].i_board},${login_user.i_user })" style="background: ${likeCk == null ? '#ffffff' : '#fafd86'};"></button>
 			</div>
 	</div>
 	
@@ -40,3 +44,41 @@
 		</c:forEach>
 	</div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+	function boardReg(i_board){
+		location.href = "/board/boardWR?"+i_board;
+	}
+	
+	//좋아요 ins Del
+	function insDelLike(i_board,i_user){
+		axios.get('/board/insLike',{
+			params:{
+				i_board : i_board,
+				i_user : i_user
+			}
+		}).then(function(res){
+			if(res.data == 1){
+				console.log('1')
+				likeCnt.style.background = '#fafd86'
+			}else{
+				console.log('0')
+				likeCnt.style.background = '#ffffff'
+			}
+			selLikeCnt(i_board)
+		})
+	}
+	
+	//좋아요 sel
+	function selLikeCnt(i_board){
+		axios.get('/board/selLikeCnt',{
+			params:{
+				i_board : i_board
+			}
+		}).then(function(res){
+			likeCnt.innerHTML = res.data.cnt
+		})
+	}
+	
+	selLikeCnt(${content[0].i_board})
+</script>

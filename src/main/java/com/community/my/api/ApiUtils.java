@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.io.LineIterator;
 import org.springframework.web.client.RestTemplate;
 
 import com.community.my.api.model.BlueTeam;
@@ -21,7 +20,7 @@ import com.community.my.api.model.SummonerDTO;
 
 public class ApiUtils {
 	
-	private static String apiKey = "RGAPI-9ffdbcc2-7289-4250-9999-e2fbb153be88";
+	private static String apiKey = "RGAPI-7933e43b-2bfa-46f3-8750-9dfbe3582f7e";
 	
 	
 	private static RestTemplate restTemplate = new RestTemplate();
@@ -254,8 +253,10 @@ public class ApiUtils {
 
 	//랭킹정보 조회
 	public static LeagueEntryDTO[] getRanking() {
+		LeagueEntryDTO[] list = null;
+		try {
 		URI url = URI.create("https://kr.api.riotgames.com/lol/league-exp/v4/entries/RANKED_SOLO_5x5/CHALLENGER/I?page=1&api_key="+apiKey);
-		LeagueEntryDTO[] list = restTemplate.getForObject(url, LeagueEntryDTO[].class);
+		list = restTemplate.getForObject(url, LeagueEntryDTO[].class);
 		SummonerDTO dto = new SummonerDTO();
 		for(int i=0; i<15; i++) {
 			dto.setName(list[i].getSummonerName());
@@ -264,6 +265,9 @@ public class ApiUtils {
 			list[i].setSummonerLevel(dto.getSummonerLevel());
 			list[i].setRanking(i+1);
 		}
+		}catch (Exception e) {
+		}
+		
 		return list;
 	}
 	

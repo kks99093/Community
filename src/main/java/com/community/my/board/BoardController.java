@@ -1,6 +1,6 @@
 package com.community.my.board;
 
-import java.util.List;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.community.my.CommonUtil;
 import com.community.my.Const;
 import com.community.my.api.model.GameDTO;
 import com.community.my.api.model.SummonerDTO;
+import com.community.my.board.model.BoardDMI;
 import com.community.my.board.model.BoardParam;
 
 
@@ -26,6 +28,7 @@ public class BoardController {
 	//자유게시판
 	@RequestMapping("/free")
 	public String freeBoard(Model model, BoardParam param) {
+				
 		model.addAttribute("data",boardService.selFreeBoardList(param));
 		model.addAttribute(Const.TITLE, "자유 게시판");
 		model.addAttribute(Const.VIEW,"board/free");
@@ -35,13 +38,40 @@ public class BoardController {
 	
 	//자유게시판 디테일
 	@RequestMapping("/free_detail")
-	public String freeDetail(Model model, BoardParam param) {
+	public String freeDetail(Model model, BoardParam param,HttpSession hs) {
+		if(CommonUtil.getLoginUser(hs) != null) {
+			int i_user = CommonUtil.getLoginUser(hs).getI_user();
+			param.setI_user(i_user);
+			model.addAttribute("likeCk",boardService.selLike(param));
+		}
 		model.addAttribute("cmt",boardService.selBoardCmt(param));
 		model.addAttribute("content",boardService.selFreeBoardList(param));
 		model.addAttribute(Const.TITLE, "디테일");
 		model.addAttribute(Const.VIEW, "board/freeDetail");	
 		model.addAttribute("css", new String[] {"boardDetail"});
 		return Const.MAINTEMP;
+	}
+	
+	//좋아요수 Select ajax
+	@RequestMapping("/selLikeCnt")
+	@ResponseBody
+	public BoardDMI selLikeCnt(BoardParam param) {
+		return boardService.selLikeCnt(param);
+	}
+	
+	//좋아요 insert Del
+	@RequestMapping("/insLike")
+	@ResponseBody
+	public int insDelLike(BoardParam param){
+		int result = 0;
+		if(boardService.selLike(param) == null) {
+			boardService.insLike(param);
+			return 1; 
+		}else {
+			boardService.delLike(param);
+		}
+		
+		return result;
 	}
 	
 	//프로필 수정
@@ -52,11 +82,14 @@ public class BoardController {
 		model.addAttribute("css", new String[] {"profileUpdate"});
 		return Const.MAINTEMP;
 	}
-
 	
 	//글쓰기 View
 	@RequestMapping(value = "/boardWR", method=RequestMethod.GET)
-	public String boardWR(Model model) {
+	public String boardWR(Model model, BoardParam param) {
+		
+		if(param != null) {
+			model.addAttribute("content",boardService.selFreeBoardList(param));
+		}
 		model.addAttribute("category", boardService.selCategory());
 		model.addAttribute(Const.TITLE, "글등록");
 		model.addAttribute(Const.VIEW,"board/boardWR");
@@ -67,9 +100,8 @@ public class BoardController {
 	//글쓰기 DB등록
 	@RequestMapping(value = "/boardWR", method=RequestMethod.POST)
 	public String boardWR(BoardParam param) {
-		param.setNick_nm("ddd");
 		boardService.insFreeBoard(param);		
-		return"redirect:/";
+		return"redirect:/board/free";
 
 	}
 	

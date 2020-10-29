@@ -9,5 +9,6 @@ import com.community.my.user.model.UserParam;
 public interface UserMapper {
 	int insJoin(UserParam param);
 	UserDMI overlapChk(UserParam param);
+	int updProfile(UserParam param);
 
 }

@@ -52,10 +52,10 @@
 								<div class="profileImg">
 									<c:choose>
 										<c:when test="${login_user.profile_img == null }">
-											<div class="userFrofile"><img src="/res/img/default_img.jpg"></div>
+											<div class="userFrofile"><img src="/res/img/user/${login_user.i_user}/profileIcon/${login_user.profile_img}"></div>
 										</c:when>
 										<c:otherwise>
-											<div class="userFrofile"><img src="/res/img/default_img.jpg"></div>
+											<div class="userFrofile"><img src="/res/img/user/${login_user.i_user}/profileIcon/${login_user.profile_img}"></div>
 										</c:otherwise>
 									</c:choose>
 									<div class="profileImgUpd"><a href="/board/profileImgUpd">이미지 수정</a></div>
@@ -67,7 +67,7 @@
 								<button class="user_myCmt" onclick="myCmtSel()">내 댓글</button>
 								<button class="user_myFavorite" onclick="myFavoriteSel()">좋아요</button>
 							</div>
-							<div>
+							<div class ="logout">
 								<a href="/user/logout">로그아웃</a>
 							</div>
 						</div>

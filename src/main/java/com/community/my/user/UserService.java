@@ -1,8 +1,12 @@
 package com.community.my.user;
 
+import java.io.File;
+import java.util.UUID;
+
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMessage.RecipientType;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -10,9 +14,11 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.community.my.CommonUtils;
 import com.community.my.Const;
+import com.community.my.model.RestFile;
 import com.community.my.user.model.UserDMI;
 import com.community.my.user.model.UserParam;
 
@@ -85,4 +91,43 @@ public class UserService {
 		 }
 		 return result;
 	 }
+	 
+	 //프로필이미지 변경
+	 public int updProfile(RestFile param, HttpServletRequest hsr) {
+			
+			String rPath =  hsr.getServletContext().getRealPath("");
+			String path = rPath+"resources/img/user/"+param.getI_user()+"/profileIcon/";
+			System.out.println(path);
+			//경로에 폴더가 없다면 경로 생성
+			File dir = new File(path);
+			if(!dir.exists()) {
+				dir.mkdirs();
+			}
+			
+			//이미지파일 이름 변경
+			MultipartFile mf = param.getProfile_img();
+			String originNm = mf.getOriginalFilename();
+			String ext = originNm.substring(originNm.lastIndexOf("."));
+			String saveFileNm = UUID.randomUUID() + ext;
+			
+			UserParam uParam = new UserParam();
+			uParam.setProfile_img(saveFileNm);
+			uParam.setI_user(param.getI_user());
+			
+			int result = 0;
+			result = userMapper.updProfile(uParam);
+			
+			//파일생성
+			if(result == 1) {
+				try {
+					mf.transferTo(new File(path + saveFileNm));
+				} catch (Exception e) {
+					e.printStackTrace();
+				} 
+			}
+			
+			
+			
+			return result;
+		}
 }

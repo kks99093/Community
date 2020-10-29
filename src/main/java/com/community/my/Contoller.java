@@ -15,8 +15,13 @@ public class Contoller {
 
 	@RequestMapping(value="")
 	public String test(Model model) {
-	
-		model.addAttribute("ranking",ApiUtils.getRanking());
+		LeagueEntryDTO[] rank = ApiUtils.getRanking();
+		if(rank == null) {
+			String err = "잠시 오류";
+			model.addAttribute("err",err);
+		}
+		
+		model.addAttribute("ranking", rank);
 		model.addAttribute("css", new String[] {"template", "main"});
 		model.addAttribute(Const.TITLE, "메인");
 		model.addAttribute(Const.VIEW,"board/main");

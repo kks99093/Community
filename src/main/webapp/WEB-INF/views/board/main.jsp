@@ -14,6 +14,9 @@
 					<td>${item.leaguePoints } LP</td>
 				</tr>
 			</c:forEach>
+			<c:if test="${err != null }">
+				${err }
+			</c:if>
 		</table>
 		</div>
 		<div class="right_border">

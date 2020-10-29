@@ -1,10 +1,16 @@
 package com.community.my.board;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.community.my.api.ApiUtils;
 import com.community.my.api.model.DetailDTO;
@@ -12,12 +18,13 @@ import com.community.my.api.model.GameDTO;
 import com.community.my.api.model.LeagueEntryDTO;
 import com.community.my.api.model.MatchDTO;
 import com.community.my.api.model.MatchlistDTO;
-import com.community.my.api.model.MinMax;
 import com.community.my.api.model.SummonerDTO;
 import com.community.my.board.model.BoardCmtVO;
 import com.community.my.board.model.BoardDMI;
 import com.community.my.board.model.BoardParam;
 import com.community.my.board.model.CodeVO;
+import com.community.my.model.RestFile;
+import com.community.my.user.model.UserParam;
 
 @Service
 public class BoardService {
@@ -45,7 +52,34 @@ public class BoardService {
 		return boardMapper.selBoardCmt(param);
 	}
 	
-	//
+	//좋아요수 Select
+	public BoardDMI selLikeCnt(BoardParam param) {
+		BoardDMI dmi = boardMapper.selLikeCnt(param);
+		if(dmi == null) {
+			BoardDMI noneDMI = new BoardDMI();
+			noneDMI.setCnt(0);
+			return noneDMI;
+		}
+		
+		return dmi;
+	}
+	
+	//좋아요 유무 Select
+	public BoardDMI selLike(BoardParam param) {
+		return boardMapper.selLike(param);
+	}
+	
+	//좋아요 insert
+	public int insLike(BoardParam param) {
+		return boardMapper.insLike(param);
+	}
+	
+	//좋아요 del
+	public int delLike(BoardParam param) {
+		return boardMapper.delLike(param);
+	}
+	
+	//전적검색
 	public GameDTO searchResult(SummonerDTO smDTO) {
 		GameDTO gameDTO = new GameDTO();
 		if(smDTO.getId() == null) {

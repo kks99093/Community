@@ -4,10 +4,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="board_WR">
 	<form id="wR_frm" action="boardWR" method="post" onsubmit="return wRChk()">
+		<input type="hidden" name="i_user" value="${login_user.i_user }">
 		<div class="top">
 			<div class="title">
 				<div><label>제목</label></div>
-				<input type="text" name="title">
+				<input type="text" name="title" value="${content[0].title == null ? '' : content[0].title }">
 			</div>
 			<div class="group">
 				<select name="i_category" id="category">
@@ -20,7 +21,11 @@
 			</div>
 		</div>
 		<div class="mid">
-			<textarea name="content" id="content"></textarea>
+			<textarea name="content" id="content">
+				<c:if test="${content[0].content != null}">
+					${content[0].content}
+				</c:if>
+			</textarea>
 		</div>
 		<div class="bottom">
 			<input type="submit" value="등  록">

@@ -4,18 +4,49 @@
 	<!-- 자유게시판 글 등록 -->
 	<insert id="insFreeBoard" parameterType="BoardParam">
 		INSERT INTO free_board
-		(title, content, nick_nm, i_category)
+		(title, content, i_user, i_category)
 		VALUES
-		(#{title}, #{content}, #{nick_nm}, #{i_category});
+		(#{title}, #{content}, #{i_user}, #{i_category});
 	</insert>
+	
+	<!-- 좋아요 insert -->
+	<insert id="insLike" parameterType="BoardParam">
+		INSERT INTO user_like
+		(i_user, i_board)
+		VALUES
+		(#{i_user},#{i_board});
+	</insert>
+	
+	<!-- 좋아요 delete -->
+	<delete id="delLike" parameterType="BoardParam">
+		DELETE FROM user_like
+		WHERE i_board = #{i_board} AND i_user = #{i_user};
+	</delete>
+	
+	
+	<!-- 게시판 좋아요 갯수 select -->
+	<select id="selLikeCnt" parameterType="BoardParam" resultType="BoardDMI">
+		SELECT count(i_board) as cnt FROM user_like
+		GROUP BY i_board = #{i_board}
+	</select>
+	
+	<!-- 좋아요 유무 select -->
+	<select id="selLike" parameterType="BoardParam" resultType="BoardDMI">
+		SELECT * FROM user_like A
+		WHERE i_board = #{i_board} AND i_user= #{i_user};
+	</select>
+	
 	
 	<!-- 게시판 리스트 Select -->
 	<select id="selFreeBoardList" parameterType="BoardParam" resultType="BoardDMI">
-		SELECT i_board,title,content,nick_nm,r_dt,i_category 
-		FROM free_board 
+		SELECT i_board,title,content,A.r_dt,i_category,B.nick_nm,A.i_user FROM free_board A
+		INNER JOIN t_user B
+		ON A.i_user = B.i_user
 		<if test="i_board != 0">
 		 WHERE i_board  = ${i_board}
 		</if>
+		ORDER BY r_dt desc
+		
 	</select>
 	<!-- 게시판 카테고리 Select -->
 	<select id="selCategory" parameterType="CodeVO" resultType="CodeVO">
@@ -23,7 +54,9 @@
 	</select>
 	<!-- 게시판 댓글 Select -->
 	<select id="selBoardCmt" parameterType="BoardParam" resultType="BoardCmtVO">
-		SELECT i_cmt, c_content, nick_nm, r_dt FROM board_cmt 
+		SELECT i_cmt, c_content, B.nick_nm, A.r_dt,A.i_user FROM board_cmt A
+		INNER JOIN t_user B
+		ON A.i_user = B.i_user 
 		WHERE i_board = #{i_board};
 	</select>
 	

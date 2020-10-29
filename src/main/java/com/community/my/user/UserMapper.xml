@@ -14,4 +14,10 @@
 		<if test="user_id != null and user_id != ''"> user_id = #{user_id} </if>
 		<if test="nick_nm != null and nick_nm !=''"> nick_nm = #{nick_nm} </if>	
 	</select>
+	
+	<update id="updProfile" parameterType="UserParam">
+		UPDATE t_user
+		SET profile_img = #{profile_img}
+		WHERE i_user = #{i_user};
+	</update>
 </mapper>

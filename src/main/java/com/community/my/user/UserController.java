@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.community.my.Const;
+import com.community.my.model.RestFile;
 import com.community.my.user.model.UserParam;
 
 
@@ -52,6 +53,14 @@ public class UserController {
 	public String logout(HttpSession hs, HttpServletRequest request) {
 		String lastPage = request.getHeader("Referer");
 		hs.invalidate();
+		return "redirect:"+lastPage;
+	}
+	
+	//프로필 업데이트
+	@RequestMapping(value = "/updProfile")
+	public String changeProfile(RestFile param, HttpServletRequest hsr){
+		String lastPage = hsr.getHeader("Referer");
+		userService.updProfile(param, hsr);
 		return "redirect:"+lastPage;
 	}
 	

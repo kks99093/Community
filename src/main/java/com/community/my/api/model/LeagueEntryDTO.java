@@ -8,6 +8,7 @@ public class LeagueEntryDTO {
 	private String queueType;	
 	private String tier;	
 	private String rank;	
+	private String err;
 	private int ranking;
 	private int leaguePoints;	
 	private int wins;
@@ -20,6 +21,14 @@ public class LeagueEntryDTO {
 	private boolean inactive;
 	private MiniSeriesDTO miniSeries;
 	
+	
+	
+	public String getErr() {
+		return err;
+	}
+	public void setErr(String err) {
+		this.err = err;
+	}
 	public int getRanking() {
 		return ranking;
 	}

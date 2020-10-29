@@ -25,7 +25,7 @@ public class FileUpload {
 	
 	@RequestMapping(value="/imageUpload", method=RequestMethod.POST)
 	@ResponseBody
-	public String imageUpload(HttpServletRequest req, HttpServletResponse resp, 
+	public String imageUpload(HttpServletRequest request, HttpServletResponse response, 
             MultipartHttpServletRequest multiFile) throws Exception {
 	JsonObject json = new JsonObject();
 	PrintWriter printWriter = null;
@@ -37,7 +37,7 @@ public class FileUpload {
 				try{
 					String fileName = file.getName();
 					byte[] bytes = file.getBytes();
-					String uploadPath = req.getServletContext().getRealPath("/resources/img");
+					String uploadPath = request.getServletContext().getRealPath("/resources/img/reg/");
 					File uploadFile = new File(uploadPath);
 					if(!uploadFile.exists()){
 						uploadFile.mkdirs();
@@ -47,9 +47,9 @@ public class FileUpload {
 					out = new FileOutputStream(new File(uploadPath));
                    out.write(bytes);
                    
-                   printWriter = resp.getWriter();
-                   resp.setContentType("text/html");
-                   String fileUrl = req.getContextPath() + "/res/img/" + fileName;
+                   printWriter = response.getWriter();
+                   response.setContentType("text/html");
+                   String fileUrl = request.getContextPath() + "/res/img/reg/" + fileName;
                    
                    // json 데이터로 등록
                    // {"uploaded" : 1, "fileName" : "test.jpg", "url" : "/img/test.jpg"}
