@@ -17,7 +17,7 @@
 					<div class="board_nickNm">${item.nick_nm }</div>
 				</article>
 			</c:forEach>
-		<a href="/board/boardWR">글쓰기</a>
+		<button onclick="goBoardWR(${login_user == null ? 0 : 1})">글쓰기</button>
 	</div>
 </div>
 
@@ -25,5 +25,15 @@
 
 	function goFreeDetail(i_board){
 		location.href = "/board/free_detail?i_board="+i_board;
+	}
+	
+	function goBoardWR(num){
+		//0이면 로그인 X, 1이면 로그인O
+		if(num == 0){
+			alert('로그인을 해주세요')
+			return false
+		}else{
+			location.href = "/board/boardWR";
+		}
 	}
 </script>

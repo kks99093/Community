@@ -14,9 +14,15 @@ public interface BoardMapper {
 	int insFreeBoard(BoardParam param);
 	int insLike(BoardParam param);
 	int delLike(BoardParam param);
+	int insCmt(BoardCmtVO param);
+	int selBoardChkUser(int i_board);
+	int selCmtChkUser(int i_cmt);
+	
 	BoardDMI selLike(BoardParam param);
 	BoardDMI selLikeCnt(BoardParam param);
+	
 	List<BoardDMI> selFreeBoardList(BoardParam param);
+	BoardDMI selFreeBoardDetail(BoardParam param);
 	List<CodeVO> selCategory();
 	
 	List<BoardCmtVO> selBoardCmt(BoardParam param);

@@ -42,13 +42,13 @@
 <script>
 
 	function wRChk(){
-		if(wR_frm.group.value == 0){
+		if(wR_frm.i_category.value == 0){
 			alert('카테고리를 선택해주세요')
 			return false;
-		}else if(wR_from.group.title.length < 1){
+		}else if(wR_from.title.length < 1){
 			alert('제목을 적어주세요')
 			return false;
-		}else if(wR_from.group.content.length < 1){
+		}else if(wR_from.content.length < 1){
 			alert('내용을 적어주세요')
 			return false;
 		}

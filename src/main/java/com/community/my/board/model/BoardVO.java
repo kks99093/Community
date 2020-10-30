@@ -6,17 +6,18 @@ public class BoardVO {
 	private String content;
 	private int i_user;
 	private String r_dt;
-	private int cnt;
+	private int like_cnt;
 	private int i_category;
 	
 	
-	public int getCnt() {
-		return cnt;
-	}
-	public void setCnt(int cnt) {
-		this.cnt = cnt;
-	}
+
 	
+	public int getLike_cnt() {
+		return like_cnt;
+	}
+	public void setLike_cnt(int like_cnt) {
+		this.like_cnt = like_cnt;
+	}
 	public int getI_user() {
 		return i_user;
 	}

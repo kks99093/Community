@@ -1,5 +1,7 @@
 package com.community.my.board;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +10,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.community.my.CommonUtil;
+import com.community.my.CommonUtils;
 import com.community.my.Const;
 import com.community.my.api.model.GameDTO;
 import com.community.my.api.model.SummonerDTO;
+import com.community.my.board.model.BoardCmtVO;
 import com.community.my.board.model.BoardDMI;
 import com.community.my.board.model.BoardParam;
 
@@ -28,7 +32,9 @@ public class BoardController {
 	//자유게시판
 	@RequestMapping("/free")
 	public String freeBoard(Model model, BoardParam param) {
-				
+		List<BoardDMI> boardList = boardService.selFreeBoardList(param);
+		
+		
 		model.addAttribute("data",boardService.selFreeBoardList(param));
 		model.addAttribute(Const.TITLE, "자유 게시판");
 		model.addAttribute(Const.VIEW,"board/free");
@@ -39,13 +45,14 @@ public class BoardController {
 	//자유게시판 디테일
 	@RequestMapping("/free_detail")
 	public String freeDetail(Model model, BoardParam param,HttpSession hs) {
-		if(CommonUtil.getLoginUser(hs) != null) {
-			int i_user = CommonUtil.getLoginUser(hs).getI_user();
+		if(CommonUtils.getLoginUser(hs) != null) {
+			int i_user = CommonUtils.getLoginUser(hs).getI_user();
 			param.setI_user(i_user);
 			model.addAttribute("likeCk",boardService.selLike(param));
 		}
+		 
 		model.addAttribute("cmt",boardService.selBoardCmt(param));
-		model.addAttribute("content",boardService.selFreeBoardList(param));
+		model.addAttribute("content",boardService.selFreeBoardDetail(param));
 		model.addAttribute(Const.TITLE, "디테일");
 		model.addAttribute(Const.VIEW, "board/freeDetail");	
 		model.addAttribute("css", new String[] {"boardDetail"});
@@ -86,7 +93,7 @@ public class BoardController {
 	//글쓰기 View
 	@RequestMapping(value = "/boardWR", method=RequestMethod.GET)
 	public String boardWR(Model model, BoardParam param) {
-		
+		System.out.println(param);
 		if(param != null) {
 			model.addAttribute("content",boardService.selFreeBoardList(param));
 		}
@@ -97,7 +104,7 @@ public class BoardController {
 		return Const.MAINTEMP;
 	}
 	
-	//글쓰기 DB등록
+	//글쓰기 등록
 	@RequestMapping(value = "/boardWR", method=RequestMethod.POST)
 	public String boardWR(BoardParam param) {
 		boardService.insFreeBoard(param);		
@@ -105,7 +112,15 @@ public class BoardController {
 
 	}
 	
-	//디테일 처리 (ajax X)
+	//댓글 등록
+	@RequestMapping(value="/insCmt")
+	public String insCmt(BoardCmtVO param, RedirectAttributes ra) {
+		boardService.insCmt(param);
+		ra.addAttribute("i_board", param.getI_board());
+		return"redirect:/board/free_detail";
+	}
+	
+	//서치 디테일 처리 (ajax X)
 	@RequestMapping(value="/nameSearch")
 	public String searchResult(Model model, SummonerDTO smDTO) {
 		smDTO.setMin(0); //시작값 설정

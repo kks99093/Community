@@ -9,7 +9,6 @@ public class BoardCmtVO {
 	private String r_dt;
 	private String nick_nm;
 	
-	
 	public String getNick_nm() {
 		return nick_nm;
 	}

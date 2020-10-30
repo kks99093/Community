@@ -1,16 +1,10 @@
 package com.community.my.board;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.community.my.api.ApiUtils;
 import com.community.my.api.model.DetailDTO;
@@ -23,8 +17,6 @@ import com.community.my.board.model.BoardCmtVO;
 import com.community.my.board.model.BoardDMI;
 import com.community.my.board.model.BoardParam;
 import com.community.my.board.model.CodeVO;
-import com.community.my.model.RestFile;
-import com.community.my.user.model.UserParam;
 
 @Service
 public class BoardService {
@@ -42,6 +34,11 @@ public class BoardService {
 		return boardMapper.selFreeBoardList(param);
 	}
 	
+	//디테일 Select
+	public BoardDMI selFreeBoardDetail(BoardParam param) {
+		return boardMapper.selFreeBoardDetail(param);
+	}
+	
 	//카테고리 Select
 	public List<CodeVO> selCategory(){
 		return boardMapper.selCategory();
@@ -52,15 +49,19 @@ public class BoardService {
 		return boardMapper.selBoardCmt(param);
 	}
 	
+	//댓글 등록
+	public int insCmt(BoardCmtVO param) {
+		return boardMapper.insCmt(param);
+	}
+	
 	//좋아요수 Select
 	public BoardDMI selLikeCnt(BoardParam param) {
 		BoardDMI dmi = boardMapper.selLikeCnt(param);
 		if(dmi == null) {
 			BoardDMI noneDMI = new BoardDMI();
-			noneDMI.setCnt(0);
+			noneDMI.setLike_cnt(0);
 			return noneDMI;
 		}
-		
 		return dmi;
 	}
 	
