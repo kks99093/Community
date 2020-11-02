@@ -11,5 +11,6 @@
 		<typeAlias type="com.community.my.board.model.BoardParam" alias="BoardParam" />
 		<typeAlias type="com.community.my.board.model.CodeVO" alias="CodeVO" />
 		<typeAlias type="com.community.my.board.model.BoardCmtVO" alias="BoardCmtVO" />
+		<typeAlias type="com.community.my.board.model.PagingVO" alias="PagingVO" />
 	</typeAliases>
 </configuration>

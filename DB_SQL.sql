@@ -45,9 +45,32 @@ CREATE TABLE board_cmt(
 	FOREIGN KEY (i_user) REFERENCES t_user(i_user)
 );
 
+SELECT * FROM free_board
+WHERE title LIKE '%a%' OR content LIKE '%c%';
+
 SELECT i_board,title,content,A.r_dt,i_category,B.nick_nm,A.i_user FROM free_board A
 INNER JOIN t_user B
 ON A.i_user = B.i_user
 WHERE i_board = 8
 ORDER BY r_dt DESC;
-;
+
+SELECT i_board, COUNT(i_board) FROM board_cmt
+GROUP BY i_board;
+
+SELECT A.i_board,title,content,A.r_dt,i_category,B.nick_nm,A.i_user,C.cmtCnt FROM free_board A
+INNER JOIN t_user B
+ON A.i_user = B.i_user
+INNER JOIN 
+(
+SELECT i_board, COUNT(i_board) AS cmtCnt FROM board_cmt
+GROUP BY i_board
+) C
+ON A.i_board = C.i_board
+WHERE title LIKE '%a%' OR content LIKE '%c%'
+ORDER BY r_dt desc
+LIMIT 0,10;
+
+SELECT count(i_board) AS cmtCnt FROM board_cmt
+WHERE i_board = 1;
+
+SELECT COUNT(i_board) as totalBoard FROM free_board;

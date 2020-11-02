@@ -38,6 +38,11 @@
 	
 }
 
+.contentList .highlight{
+	font-size: bold;
+	color:fuchsia;
+}
+
 .contentList:hover{
 	background-color: #ddffff;
 }

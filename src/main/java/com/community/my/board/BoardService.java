@@ -17,6 +17,7 @@ import com.community.my.board.model.BoardCmtVO;
 import com.community.my.board.model.BoardDMI;
 import com.community.my.board.model.BoardParam;
 import com.community.my.board.model.CodeVO;
+import com.community.my.board.model.PagingVO;
 
 @Service
 public class BoardService {
@@ -31,7 +32,36 @@ public class BoardService {
 	
 	//리스트 Select
 	public List<BoardDMI> selFreeBoardList(BoardParam param) {
-		return boardMapper.selFreeBoardList(param);
+		param.setCurPage((param.getCurPage()-1)*10);
+		List<BoardDMI> list = boardMapper.selFreeBoardList(param);
+
+		if(param.getSearchType() ==1 || param.getSearchType() == 3 && param.getSearchType() != 0) {
+			for(BoardDMI item : list) {			
+				String title = item.getTitle();
+				title = title.replace(param.getSearchText()
+						, "<span class=\"highlight\">"+param.getSearchText() + "</span>");
+				item.setTitle(title);
+			}
+		}
+		
+		return list;
+	}
+	
+	//총페이지수 
+	public PagingVO selPaging(PagingVO page) {
+		page.setTotalBoard(boardMapper.selTotalPage(page).getTotalBoard());
+		int cntPerPage = (page.getTotalBoard()/page.getCntPerPage())+1; //페이지수
+		page.setPagingCnt(cntPerPage);
+		page.setRangeCnt((cntPerPage/10) + 1);//페이징 블록수
+		
+		page.setStartIdx(((page.getCurRange()-1)*10)+1);//시작 인덱스 ((현재블록-1)*10)+1
+		if(page.getCurRange() == page.getRangeCnt()) {
+			int endIdx = cntPerPage;
+			page.setEndIdx(endIdx);
+		}else {
+			page.setEndIdx(page.getStartIdx()+9);
+		}
+		return page;
 	}
 	
 	//디테일 Select

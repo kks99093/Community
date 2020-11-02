@@ -54,7 +54,7 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
 	function boardReg(i_board){
-		location.href = "/board/boardWR?"+i_board;
+		location.href = "/board/boardWR?i_board="+i_board;
 	}
 	
 	//좋아요 ins Del

@@ -1,7 +1,5 @@
 package com.community.my.board;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +17,7 @@ import com.community.my.api.model.SummonerDTO;
 import com.community.my.board.model.BoardCmtVO;
 import com.community.my.board.model.BoardDMI;
 import com.community.my.board.model.BoardParam;
+import com.community.my.board.model.PagingVO;
 
 
 @Controller
@@ -31,10 +30,17 @@ public class BoardController {
 	
 	//자유게시판
 	@RequestMapping("/free")
-	public String freeBoard(Model model, BoardParam param) {
-		List<BoardDMI> boardList = boardService.selFreeBoardList(param);
-		
-		
+	public String freeBoard(Model model, BoardParam param, PagingVO page) {
+		page.setCntPerPage(10); //한페이지당 게시글
+		if(param.getCurPage() == 0) {
+			//초기값들
+			param.setCurPage(1);
+			page.setCurRange(1);
+		}
+		param.setCntPerPage(page.getCntPerPage()); //리스트 서치 limit용
+		String sqlText = "%"+param.getSearchText()+"%";
+		param.setSqlText(sqlText);
+		model.addAttribute("page",boardService.selPaging(page));
 		model.addAttribute("data",boardService.selFreeBoardList(param));
 		model.addAttribute(Const.TITLE, "자유 게시판");
 		model.addAttribute(Const.VIEW,"board/free");
@@ -93,9 +99,8 @@ public class BoardController {
 	//글쓰기 View
 	@RequestMapping(value = "/boardWR", method=RequestMethod.GET)
 	public String boardWR(Model model, BoardParam param) {
-		System.out.println(param);
-		if(param != null) {
-			model.addAttribute("content",boardService.selFreeBoardList(param));
+		if(param.getI_board() != 0) {
+			model.addAttribute("content",boardService.selFreeBoardDetail(param));
 		}
 		model.addAttribute("category", boardService.selCategory());
 		model.addAttribute(Const.TITLE, "글등록");

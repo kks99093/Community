@@ -8,7 +8,7 @@
 		<div class="top">
 			<div class="title">
 				<div><label>제목</label></div>
-				<input type="text" name="title" value="${content[0].title == null ? '' : content[0].title }">
+				<input type="text" name="title" value="${content.title == null ? '' : content.title }">
 			</div>
 			<div class="group">
 				<select name="i_category" id="category">
@@ -22,8 +22,8 @@
 		</div>
 		<div class="mid">
 			<textarea name="content" id="content">
-				<c:if test="${content[0].content != null}">
-					${content[0].content}
+				<c:if test="${content.content != null}">
+					${content.content}
 				</c:if>
 			</textarea>
 		</div>

@@ -8,6 +8,7 @@ import com.community.my.board.model.BoardCmtVO;
 import com.community.my.board.model.BoardDMI;
 import com.community.my.board.model.BoardParam;
 import com.community.my.board.model.CodeVO;
+import com.community.my.board.model.PagingVO;
 
 @Mapper
 public interface BoardMapper {
@@ -20,6 +21,7 @@ public interface BoardMapper {
 	
 	BoardDMI selLike(BoardParam param);
 	BoardDMI selLikeCnt(BoardParam param);
+	PagingVO selTotalPage(PagingVO page);
 	
 	List<BoardDMI> selFreeBoardList(BoardParam param);
 	BoardDMI selFreeBoardDetail(BoardParam param);
