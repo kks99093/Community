@@ -19,7 +19,7 @@ public class BoardInterceptor extends HandlerInterceptorAdapter {
 		
 		String uri = request.getRequestURI();
 		String[] uriArr = uri.split("/");
-		String[] checkKeywords = {"del", "Del", "upd", "Upd", "ins", "Ins"};
+		String[] checkKeywords = {"del", "Del", "upd", "Upd"};
 		for(String keyword: checkKeywords) {
 			if(uriArr[2].contains(keyword)) {
 				System.out.println("1확인");

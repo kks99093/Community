@@ -37,7 +37,7 @@ CREATE TABLE board_cmt(
 	FOREIGN KEY (i_board) REFERENCES free_board(i_board),
 	FOREIGN KEY (i_user) REFERENCES t_user(i_user)
 );
-CREATE TABLE board_cmt(
+CREATE TABLE board_like(
 	i_user INT UNSIGNED,
 	i_board INT UNSIGNED,
 	PRIMARY KEY(i_user, i_board),

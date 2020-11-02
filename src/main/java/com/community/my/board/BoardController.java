@@ -50,18 +50,28 @@ public class BoardController {
 	
 	//자유게시판 디테일
 	@RequestMapping("/free_detail")
-	public String freeDetail(Model model, BoardParam param,HttpSession hs) {
+	public String freeDetail(Model model, BoardParam param,HttpSession hs, PagingVO page) {
 		if(CommonUtils.getLoginUser(hs) != null) {
 			int i_user = CommonUtils.getLoginUser(hs).getI_user();
 			param.setI_user(i_user);
 			model.addAttribute("likeCk",boardService.selLike(param));
 		}
-		 
+		page.setCntPerPage(10); //한페이지당 게시글
+		if(param.getCurPage() == 0) {
+			//초기값들
+			param.setCurPage(1);
+			page.setCurRange(1);
+		}
+		param.setCntPerPage(page.getCntPerPage()); //리스트 서치 limit용
+		String sqlText = "%"+param.getSearchText()+"%";
+		param.setSqlText(sqlText);
+		model.addAttribute("page",boardService.selPaging(page));
+		model.addAttribute("data",boardService.selFreeBoardList(param));
 		model.addAttribute("cmt",boardService.selBoardCmt(param));
 		model.addAttribute("content",boardService.selFreeBoardDetail(param));
 		model.addAttribute(Const.TITLE, "디테일");
 		model.addAttribute(Const.VIEW, "board/freeDetail");	
-		model.addAttribute("css", new String[] {"boardDetail"});
+		model.addAttribute("css", new String[] {"boardDetail", "free"});
 		return Const.MAINTEMP;
 	}
 	

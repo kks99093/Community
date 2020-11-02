@@ -37,7 +37,7 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 				}
 			case "board":
 				switch(uriArr[2]) {
-					case "profileImgUpd": case"boardWR":
+					case "profileImgUpd": case"boardWR": case"insCmt":
 						if(login_user == null) {
 							response.sendRedirect("/");
 							return false;
