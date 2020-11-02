@@ -18,6 +18,9 @@ public interface BoardMapper {
 	int insCmt(BoardCmtVO param);
 	int selBoardChkUser(int i_board);
 	int selCmtChkUser(int i_cmt);
+	int addCnt(BoardParam param);
+	int delBoard(BoardParam param);
+	int delCmt(BoardParam param);
 	
 	BoardDMI selLike(BoardParam param);
 	BoardDMI selLikeCnt(BoardParam param);

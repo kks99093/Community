@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.community.my.api.ApiUtils;
 import com.community.my.api.model.DetailDTO;
@@ -28,6 +29,14 @@ public class BoardService {
 	//글 등록
 	public int insFreeBoard(BoardParam param) {
 		return boardMapper.insFreeBoard(param);
+	}
+	
+	//글 삭제
+	@Transactional
+	public void delBoard(BoardParam param) {
+		boardMapper.delCmt(param);
+		boardMapper.delLike(param);
+		boardMapper.delBoard(param);
 	}
 	
 	//리스트 Select
@@ -73,6 +82,9 @@ public class BoardService {
 	public List<CodeVO> selCategory(){
 		return boardMapper.selCategory();
 	}
+	public int addCnt(BoardParam param) {
+		return boardMapper.addCnt(param);
+	}
 	
 	//디테일 Select
 	public List<BoardCmtVO> selBoardCmt(BoardParam param) {
@@ -82,6 +94,11 @@ public class BoardService {
 	//댓글 등록
 	public int insCmt(BoardCmtVO param) {
 		return boardMapper.insCmt(param);
+	}
+	
+	//댓글 삭제
+	public int delCmt(BoardParam param) {
+		return boardMapper.delCmt(param);
 	}
 	
 	//좋아요수 Select

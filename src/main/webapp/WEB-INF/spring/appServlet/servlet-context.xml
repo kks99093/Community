@@ -51,6 +51,7 @@
 		
 	<mybatis-spring:scan base-package="com.community.my"/>
 	
+	<!-- 트랜잭션 -->
 	<beans:bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<beans:property name="dataSource" ref="dataSource"/>
 	</beans:bean>

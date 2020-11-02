@@ -2,12 +2,15 @@ package com.community.my.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.community.my.CommonUtils;
+import com.community.my.Const;
 import com.community.my.board.BoardMapper;
+import com.community.my.user.model.UserVO;
 
 public class BoardInterceptor extends HandlerInterceptorAdapter {
 	
@@ -28,8 +31,9 @@ public class BoardInterceptor extends HandlerInterceptorAdapter {
 				if(i_board == 0) {
 					return false;
 				}
-				String strI_user = request.getParameter("i_user");
-				int i_user = Integer.parseInt(strI_user); 
+				HttpSession hs = request.getSession();
+				UserVO vo = (UserVO)hs.getAttribute(Const.LOGIN_USER);
+				int i_user = vo.getI_user(); 
 				if(uriArr[2].contains("cmt") || uriArr[2].contains("Cmt")) {
 					System.out.println("2확인");
 					String strI_cmt = request.getParameter("i_cmt");

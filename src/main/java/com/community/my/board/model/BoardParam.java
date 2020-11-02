@@ -5,10 +5,17 @@ public class BoardParam extends BoardVO {
 	private int cntPerPage;
 	private int searchType;
 	private int cmtCnt;
+	private int i_cmt;
 	private String searchText;
 	private String sqlText;
 	
 	
+	public int getI_cmt() {
+		return i_cmt;
+	}
+	public void setI_cmt(int i_cmt) {
+		this.i_cmt = i_cmt;
+	}
 	public int getCmtCnt() {
 		return cmtCnt;
 	}

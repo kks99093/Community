@@ -56,6 +56,7 @@ public class BoardController {
 			param.setI_user(i_user);
 			model.addAttribute("likeCk",boardService.selLike(param));
 		}
+		//ㅡㅡㅡㅡ게시판리스트
 		page.setCntPerPage(10); //한페이지당 게시글
 		if(param.getCurPage() == 0) {
 			//초기값들
@@ -67,6 +68,8 @@ public class BoardController {
 		param.setSqlText(sqlText);
 		model.addAttribute("page",boardService.selPaging(page));
 		model.addAttribute("data",boardService.selFreeBoardList(param));
+		//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+		boardService.addCnt(param);
 		model.addAttribute("cmt",boardService.selBoardCmt(param));
 		model.addAttribute("content",boardService.selFreeBoardDetail(param));
 		model.addAttribute(Const.TITLE, "디테일");
@@ -123,14 +126,29 @@ public class BoardController {
 	@RequestMapping(value = "/boardWR", method=RequestMethod.POST)
 	public String boardWR(BoardParam param) {
 		boardService.insFreeBoard(param);		
-		return"redirect:/board/free";
+		return "redirect:/board/free";
 
+	}
+	
+	//글삭제
+	@RequestMapping(value = "/boardDel")
+	public String boardDel(BoardParam param) {
+		boardService.delBoard(param);
+		return "redirect:/board/free";
 	}
 	
 	//댓글 등록
 	@RequestMapping(value="/insCmt")
 	public String insCmt(BoardCmtVO param, RedirectAttributes ra) {
 		boardService.insCmt(param);
+		ra.addAttribute("i_board", param.getI_board());
+		return"redirect:/board/free_detail";
+	}
+	
+	//댓글 삭제
+	@RequestMapping(value="/delCmt")
+	public String delCmt(BoardParam param, RedirectAttributes ra) {
+		boardService.delCmt(param);
 		ra.addAttribute("i_board", param.getI_board());
 		return"redirect:/board/free_detail";
 	}

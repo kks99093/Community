@@ -9,9 +9,14 @@
 		(#{title}, #{content}, #{i_user}, #{i_category});
 	</insert>
 	
+	<delete id="delBoard" parameterType="BoardParam">
+		DELETE FROM free_board
+		where i_board = #{i_board}
+	</delete>
+	
 	<!-- 게시판 리스트 Select -->
 	<select id="selFreeBoardList" parameterType="BoardParam" resultType="BoardDMI">
-		SELECT A.i_board,title,content,A.r_dt,i_category,B.nick_nm,A.i_user,C.cmtCnt FROM free_board A
+		SELECT A.i_board,title,content,A.r_dt,i_category,B.nick_nm,A.i_user,C.cmtCnt,A.cnt FROM free_board A
 		INNER JOIN t_user B
 		ON A.i_user = B.i_user
 		LEFT JOIN 
@@ -41,13 +46,25 @@
 	<select id="selTotalPage" parameterType="PagingVO" resultType="PagingVO">
 		SELECT COUNT(i_board) as totalBoard FROM free_board
 	</select>
+	<!-- 조회수 -->
+	<update id="addCnt" parameterType="BoardParam">
+		UPDATE free_board
+		SET cnt = cnt+1
+		WHERE i_board = #{i_board}
+	</update>
 	
 	<!-- 디테일 select -->
 	<select id="selFreeBoardDetail" parameterType="BoardParam" resultType="BoardDMI">
-		SELECT i_board,title,content,A.r_dt,i_category,B.nick_nm,A.i_user FROM free_board A
+		SELECT A.i_board,title,content,A.r_dt,i_category,B.nick_nm,A.i_user,C.cmtCnt,A.cnt FROM free_board A
 		INNER JOIN t_user B
 		ON A.i_user = B.i_user
-		WHERE i_board = ${i_board}
+		LEFT JOIN 
+			(
+			SELECT i_board, COUNT(i_board) AS cmtCnt FROM board_cmt
+			GROUP BY i_board
+			) C
+		ON A.i_board = C.i_board
+		WHERE A.i_board = #{i_board}
 	</select>
 	
 	<!-- 게시판 카테고리 Select -->
@@ -71,6 +88,15 @@
 		(#{i_board},#{c_content},${i_user});
 	</insert>
 	
+	<!-- 댓글 삭제 -->
+	<delete id="delCmt" parameterType="BoardParam">
+		DELETE FROM board_cmt
+		WHERE i_board = #{i_board} 
+		<if test="i_cmt > 0">
+		 AND i_cmt = #{i_cmt}
+		</if>
+	</delete>
+	
 	<!-- 좋아요 insert -->
 	<insert id="insLike" parameterType="BoardParam">
 		INSERT INTO board_like
@@ -82,7 +108,10 @@
 	<!-- 좋아요 delete -->
 	<delete id="delLike" parameterType="BoardParam">
 		DELETE FROM board_like
-		WHERE i_board = #{i_board} AND i_user = #{i_user};
+		WHERE i_board = #{i_board}
+		<if test="i_user > 0"> 
+			AND i_user = #{i_user};
+		</if>
 	</delete>
 	
 	<!-- 게시판 좋아요 갯수 select -->
@@ -99,7 +128,7 @@
 		
 	<!-- board 작성자 체크 -->
 	<select id="selBoardChkUser" parameterType="Integer" resultType="Integer">
-		SELECT i_user FROM t_board
+		SELECT i_user FROM free_board
 		WHERE i_board = #{i_board}
 	</select>
 	

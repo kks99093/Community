@@ -12,8 +12,8 @@
 					<div class="detail_nickNm">${content.nick_nm}</div>
 				</div>
 				<div class="header_right">
-					<div>조회수</div>
-					<div>댓글수</div>
+					<div>조회수 : ${content.cnt }</div>
+					<div>댓글수 : ${content.cmtCnt }</div>
 				</div>
 			</div>
 			<c:if test="${login_user.i_user == content.i_user}">
@@ -33,7 +33,11 @@
 		<c:forEach items="${cmt}" var="item" varStatus="status">
 			<div class="cmt">
 				<div class="cmtMain">
-					<div class="cmtNm">${item.nick_nm} <span class="cmt_r_dt">${item.r_dt }</span></div>
+					<div class="cmtNm">${item.nick_nm} <span class="cmt_r_dt">${item.r_dt }</span>
+					<c:if test="${login_user.i_user == content.i_user}"> 
+						<a href="#" onclick="delCmt(${content.i_board},${item.i_cmt})">삭제</a>
+					</c:if>
+					</div>
 					<div class="cmtContent"> ${item.c_content }</div>
 					<div class="l_cmtIns">답글달기</div>
 				</div>
@@ -101,9 +105,28 @@
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
+	//게시글 수정
 	function boardReg(i_board){
 		location.href = "/board/boardWR?i_board="+i_board;
 	}
+	
+	//게시글 삭제
+	function boardDel(i_board){
+		if(confirm('정말 삭제 하시겠습니까?')){
+			location.href = "/board/boardDel?i_board="+i_board;
+		}else{
+			return
+		}
+	}
+	
+	function delCmt(i_board, i_cmt){
+		if(confirm('정말 삭제 하시겠습니까?')){
+			location.href = "/board/delCmt?i_board="+i_board+"&i_cmt="+i_cmt;
+		}else{
+			return
+		}
+	}
+	
 	
 	//좋아요 ins Del
 	function insDelLike(i_board,i_user){

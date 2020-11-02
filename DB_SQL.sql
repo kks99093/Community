@@ -13,11 +13,10 @@ CREATE TABLE free_board(
 	i_board INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	title VARCHAR(30) NOT NULL,
 	content VARCHAR(2000) NOT NULL,
-	i_user INT UNSIGNED,
+	i_user INT UNSIGNED NOT NULL,
 	r_dt DATETIME DEFAULT NOW(),
-	i_category INT UNSIGNED,
-	cnt INT UNSIGNED ,
-	like_cnt INT UNSIGNED,
+	i_category INT UNSIGNED NOT NULL,
+	cnt INT UNSIGNED DEFAULT 0 ,
 	FOREIGN KEY (i_category) REFERENCES t_category(i_category),
 	FOREIGN KEY (i_user) REFERENCES t_user(i_user)
 );
@@ -74,3 +73,12 @@ SELECT count(i_board) AS cmtCnt FROM board_cmt
 WHERE i_board = 1;
 
 SELECT COUNT(i_board) as totalBoard FROM free_board;
+
+DELETE FROM free_board
+WHERE i_board = 1;
+
+DELETE FROM board_cmt
+WHERE i_board = 1;
+
+DELETE FROM board_like
+WHERE i_board = 1;
