@@ -16,7 +16,7 @@
 	
 	<!-- 게시판 리스트 Select -->
 	<select id="selFreeBoardList" parameterType="BoardParam" resultType="BoardDMI">
-		SELECT A.i_board,title,content,A.r_dt,i_category,B.nick_nm,A.i_user,C.cmtCnt,A.cnt FROM free_board A
+		SELECT A.i_board,title,content,A.r_dt,A.i_category,B.nick_nm,A.i_user,C.cmtCnt,A.cnt,D.category FROM free_board A
 		INNER JOIN t_user B
 		ON A.i_user = B.i_user
 		LEFT JOIN 
@@ -25,6 +25,8 @@
 			GROUP BY i_board
 			) C
 		ON A.i_board = C.i_board
+		LEFT JOIN t_category D
+		ON A.i_category = D.i_category
 		<if test="searchText != null">
 			<choose>
 				<when test="searchType == 1">
@@ -38,8 +40,46 @@
 				</when>
 			</choose>
 		</if>
+		<if test="i_category > 0 and searchType == 0">
+			WHERE A.i_category = #{i_category}
+		</if>
+		<if test="i_category > 0 and searchType >0">
+			AND A.i_category = #{i_category}
+		</if>
 		ORDER BY r_dt desc
 		LIMIT #{curPage},#{cntPerPage}
+	</select>
+	
+	<!-- 일주일 인기글 select -->
+	<select id="weekLikeBoard" parameterType="BoardParam" resultType="BoardDMI">
+		SELECT A.i_board,A.title,B.like_cnt,A.i_category FROM free_board A
+		LEFT JOIN(
+		SELECT i_board, COUNT(i_board) AS like_cnt FROM board_like
+		GROUP BY i_board
+		) B
+		ON A.i_board = B.i_board
+		WHERE A.r_dt > DATE_ADD(now(),interval -7 DAY)
+		<if	test="i_category > 0">
+			AND A.i_category = #{i_category}
+		</if>
+		ORDER BY B.like_cnt DESC
+		LIMIT 0,5;
+	</select>
+	
+	<!-- 한달 인기글 select -->
+	<select id="monthLikeBoard" parameterType="BoardParam" resultType="BoardDMI">
+		SELECT A.i_board,A.title,B.like_cnt FROM free_board A
+		LEFT JOIN(
+		SELECT i_board, COUNT(i_board) AS like_cnt FROM board_like
+		GROUP BY i_board
+		) B
+		ON A.i_board = B.i_board
+		WHERE A.r_dt > DATE_ADD(now(),interval -1 MONTH)
+		<if	test="i_category > 0">
+			AND A.i_category = #{i_category}
+		</if>
+		ORDER BY B.like_cnt DESC
+		LIMIT 0,5;
 	</select>
 	
 	<!-- 페이징 갯수 Select -->
@@ -55,7 +95,7 @@
 	
 	<!-- 디테일 select -->
 	<select id="selFreeBoardDetail" parameterType="BoardParam" resultType="BoardDMI">
-		SELECT A.i_board,title,content,A.r_dt,i_category,B.nick_nm,A.i_user,C.cmtCnt,A.cnt FROM free_board A
+		SELECT A.i_board,title,content,A.r_dt,i_category,B.nick_nm,A.i_user,C.cmtCnt,A.cnt, IFNULL(D.like_cnt,0) AS like_cnt FROM free_board A
 		INNER JOIN t_user B
 		ON A.i_user = B.i_user
 		LEFT JOIN 
@@ -64,7 +104,13 @@
 			GROUP BY i_board
 			) C
 		ON A.i_board = C.i_board
-		WHERE A.i_board = #{i_board}
+		LEFT JOIN 
+			(
+				SELECT i_board, COUNT(i_board) AS like_cnt FROM board_like
+				WHERE i_board = #{i_board}
+			) D
+		ON A.i_board = D.i_board
+		WHERE A.i_board = #{i_board};
 	</select>
 	
 	<!-- 게시판 카테고리 Select -->
@@ -117,7 +163,7 @@
 	<!-- 게시판 좋아요 갯수 select -->
 	<select id="selLikeCnt" parameterType="BoardParam" resultType="BoardDMI">
 		SELECT count(i_board) as like_cnt FROM board_like
-		GROUP BY i_board = #{i_board}
+		WHERE i_board = #{i_board}
 	</select>
 	
 	<!-- 좋아요 유무 select -->

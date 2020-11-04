@@ -21,14 +21,29 @@
 		</div>
 		<div class="right_border">
 			<div class="right_top">
-				공지
+				<div class="rankTitle">전체 인기글(주간)</div>
+				<c:forEach items="${allWeek}" var="allWeek" varStatus="i">
+					<div class="allWeek">
+						${i.index+1} <a class="cursor" onclick="goFreeDetail(${allWeek.i_board},${allWeek.i_category})">${allWeek.title}</a> 
+					</div>
+				</c:forEach>
 			</div>
 			<div class="right_bottom">
 				<div class="free_border_rank">
-					아직
+					<div class="rankTitle">자유 인기글(주간)</div>
+					<c:forEach items="${freeWeek}" var="freeWeek" varStatus="i">
+						<div class="freeWeek">
+							${i.index+1} <a class="cursor" onclick="goFreeDetail(${freeWeek.i_board},${freeWeek.i_category})">${freeWeek.title}</a> 
+						</div>
+					</c:forEach>
 				</div>
 				<div class="border_rank">
-					미정
+					<div class="rankTitle">유머 인기글(주간)</div>
+					<c:forEach items="${humorWeek}" var="humorWeek" varStatus="i">
+						<div class="humorWeek">
+							${i.index+1} <a class="cursor" onclick="goFreeDetail(${humorWeek.i_board},${humorWeek.i_category})">${humorWeek.title}</a> 
+						</div>
+					</c:forEach>
 				</div>
 			</div>
 		</div>
@@ -37,5 +52,10 @@
 <script>
 	function goSearch(name){
 		location.href = "/board/nameSearch?name="+name
+	}
+	
+	function goFreeDetail(i_board,i_category){
+		console.log(i_category)
+		location.href = "/board/free_detail?i_board="+i_board+"&i_category="+i_category;
 	}
 </script>

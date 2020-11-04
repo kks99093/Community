@@ -58,7 +58,7 @@
 											<div class="userFrofile"><img src="/res/img/user/${login_user.i_user}/profileIcon/${login_user.profile_img}"></div>
 										</c:otherwise>
 									</c:choose>
-									<div class="profileImgUpd"><a href="/board/profileImgUpd">이미지 수정</a></div>
+									<div class="profileImgUpd"><a href="/board/profileImg">이미지 수정</a></div>
 								</div>
 								<div class="user_nickNm">${login_user.nick_nm}</div>
 							</div>
@@ -75,9 +75,9 @@
 				</c:choose>
 				<div class="move_menu">
 					<div class="menu_div" onclick="home()">홈</div>
+					<div class="menu_div" onclick="allBoard()">전체</div>
 					<div class="menu_div" onclick="freeBoard()">자유</div>
-					<div class="menu_div">세번째</div>
-					<div class="menu_div">네번째</div>
+					<div class="menu_div" onclick="humorBoard()">유머</div>
 				</div>
 	       	</div>
 	    </div>
@@ -110,7 +110,13 @@
 	    }
 	    
 	    function freeBoard(){
-	    	location.href= '/board/free'
+	    	location.href= '/board/allBoard?i_category='+1
+	    }
+	    function allBoard(){
+	    	location.href= '/board/allBoard'
+	    }
+	    function humorBoard(){
+	    	location.href= '/board/allBoard?i_category='+2
 	    }
 	    
 	    function home(){

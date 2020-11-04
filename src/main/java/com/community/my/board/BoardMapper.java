@@ -27,6 +27,8 @@ public interface BoardMapper {
 	PagingVO selTotalPage(PagingVO page);
 	
 	List<BoardDMI> selFreeBoardList(BoardParam param);
+	List<BoardDMI> weekLikeBoard(BoardParam param);
+	List<BoardDMI> monthLikeBoard(BoardParam param);
 	BoardDMI selFreeBoardDetail(BoardParam param);
 	List<CodeVO> selCategory();
 	

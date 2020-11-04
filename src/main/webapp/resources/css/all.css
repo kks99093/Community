@@ -1,27 +1,45 @@
 @charset "UTF-8";
+.cursor{
+	cursor: pointer;
+}
 .free_container{
 	font-family: 'Nanum Gothic', sans-serif;
 	display: flex;
 	flex-direction: column;
-	width: 100%;
+	width: 90%;
 	height: 100%;
 }
 
 .free_container .free_top{
-	border: 1px solid black;
 	display: flex;
 }
 
 .free_container .free_top .free_left{
+	height:140px;
 	margin: 10px;
-	border: 1px solid black;
+	border: 1px solid #dedede;
 	flex-grow: 1;
 }
 
+.free_container .free_top .free_left .weekTitle{
+	margin: 5px 0px 0px 10px;	
+}
+.free_container .free_top .free_left .weekTitle:hover{
+	background-color: #dedede;
+}
+
 .free_container .free_top .free_right{
+	height:140px;
 	margin: 10px;
-	border: 1px solid black;
+	border: 1px solid #dedede;
 	flex-grow: 1;
+}
+.free_container .free_top .free_right .monthTitle{
+	margin: 5px 0px 0px 10px;
+}
+
+.free_container .free_top .free_right .monthTitle:hover{
+	background-color: #dedede;
 }
 
 .free_container .free_bottom{
@@ -56,8 +74,13 @@
 	width : 5%;
 } 
 
+.board_cate{
+	color: #dedede;
+	width: 8%;
+}
+
 .board_title{
-	width : 70%;
+	width : 60%;
 }
 
 .board_title:hover{

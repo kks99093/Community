@@ -82,3 +82,59 @@ WHERE i_board = 1;
 
 DELETE FROM board_like
 WHERE i_board = 1;
+
+UPDATE free_board
+SET cnt = cnt+1
+WHERE i_board = 108;
+
+SELECT A.i_board,A.title FROM free_board A
+LEFT JOIN(
+SELECT i_board, COUNT(i_board) AS cnt FROM board_like
+GROUP BY i_board
+) B
+ON A.i_board = B.i_board
+WHERE A.r_dt > DATE_ADD(now(),INTERVAL -7 DAY)
+ORDER BY B.cnt DESC
+LIMIT 0,5;
+
+SELECT A.i_board,A.title FROM free_board A
+LEFT JOIN(
+SELECT i_board, COUNT(i_board) AS cnt FROM board_like
+GROUP BY i_board
+) B
+ON A.i_board = B.i_board
+WHERE A.r_dt > DATE_ADD(now(),INTERVAL -1 MONTH)
+ORDER BY B.cnt DESC
+LIMIT 0,5;
+
+SELECT A.i_board,title,content,A.r_dt,A.i_category,B.nick_nm,A.i_user,C.cmtCnt,A.cnt,D.category FROM free_board A
+		INNER JOIN t_user B
+		ON A.i_user = B.i_user
+		LEFT JOIN 
+			(
+			SELECT i_board, COUNT(i_board) AS cmtCnt FROM board_cmt
+			GROUP BY i_board
+			) C
+		ON A.i_board = C.i_board
+		LEFT JOIN t_category D
+		ON A.i_category = D.i_category
+		WHERE A.i_category = 1
+ORDER BY r_dt desc
+LIMIT 0,5;
+
+SELECT A.i_board,title,content,A.r_dt,i_category,B.nick_nm,A.i_user,C.cmtCnt,A.cnt, D.like_cnt FROM free_board A
+		INNER JOIN t_user B
+		ON A.i_user = B.i_user
+		LEFT JOIN 
+			(
+			SELECT i_board, COUNT(i_board) AS cmtCnt FROM board_cmt
+			GROUP BY i_board
+			) C
+		ON A.i_board = C.i_board
+		LEFT JOIN 
+			(
+				SELECT i_board, COUNT(i_board) AS like_cnt FROM board_like
+				WHERE i_board = 3
+			) D
+		ON A.i_board = D.i_board
+		WHERE A.i_board = 3;

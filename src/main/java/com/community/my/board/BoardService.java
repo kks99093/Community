@@ -56,6 +56,15 @@ public class BoardService {
 		return list;
 	}
 	
+	//일주일 인기글
+	public List<BoardDMI> weekLikeBoard(BoardParam param){
+		return boardMapper.weekLikeBoard(param);
+	}
+	//한달 인기글
+	public List<BoardDMI> monthLikeBoard(BoardParam param){
+		return boardMapper.monthLikeBoard(param);
+	}
+	
 	//총페이지수 
 	public PagingVO selPaging(PagingVO page) {
 		page.setTotalBoard(boardMapper.selTotalPage(page).getTotalBoard());
@@ -104,9 +113,11 @@ public class BoardService {
 	//좋아요수 Select
 	public BoardDMI selLikeCnt(BoardParam param) {
 		BoardDMI dmi = boardMapper.selLikeCnt(param);
+		System.out.println("0");
 		if(dmi == null) {
 			BoardDMI noneDMI = new BoardDMI();
 			noneDMI.setLike_cnt(0);
+			System.out.println("1");
 			return noneDMI;
 		}
 		return dmi;

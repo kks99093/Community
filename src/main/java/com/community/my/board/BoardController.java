@@ -28,23 +28,33 @@ public class BoardController {
 	private BoardService boardService;
 	
 	
-	//자유게시판
-	@RequestMapping("/free")
-	public String freeBoard(Model model, BoardParam param, PagingVO page) {
+	//전체
+	@RequestMapping("/allBoard")
+	public String allBoard(Model model, BoardParam param, PagingVO page) {
 		page.setCntPerPage(10); //한페이지당 게시글
 		if(param.getCurPage() == 0) {
 			//초기값들
 			param.setCurPage(1);
 			page.setCurRange(1);
 		}
+		if(param.getI_category() != 0) {
+			model.addAttribute("i_category",param.getI_category());
+			System.out.println(param.getI_category());
+		}else {
+			model.addAttribute("i_category",0);
+			System.out.println(param.getI_category());
+		}
+		
 		param.setCntPerPage(page.getCntPerPage()); //리스트 서치 limit용
 		String sqlText = "%"+param.getSearchText()+"%";
 		param.setSqlText(sqlText);
+		model.addAttribute("week",boardService.weekLikeBoard(param));
+		model.addAttribute("month",boardService.monthLikeBoard(param));
 		model.addAttribute("page",boardService.selPaging(page));
 		model.addAttribute("data",boardService.selFreeBoardList(param));
 		model.addAttribute(Const.TITLE, "자유 게시판");
-		model.addAttribute(Const.VIEW,"board/free");
-		model.addAttribute("css",new String[] {"free"});
+		model.addAttribute(Const.VIEW,"board/all");
+		model.addAttribute("css",new String[] {"all"});
 		return Const.MAINTEMP;
 	}
 	
@@ -74,7 +84,7 @@ public class BoardController {
 		model.addAttribute("content",boardService.selFreeBoardDetail(param));
 		model.addAttribute(Const.TITLE, "디테일");
 		model.addAttribute(Const.VIEW, "board/freeDetail");	
-		model.addAttribute("css", new String[] {"boardDetail", "free"});
+		model.addAttribute("css", new String[] {"boardDetail", "all"});
 		return Const.MAINTEMP;
 	}
 	
@@ -101,7 +111,7 @@ public class BoardController {
 	}
 	
 	//프로필 수정
-	@RequestMapping(value = "/profileImgUpd")
+	@RequestMapping(value = "/profileImg")
 	public String profileUpdate(Model model) {
 		model.addAttribute(Const.TITLE, "프로필 수정");
 		model.addAttribute(Const.VIEW,"/board/profileUpdate");
@@ -126,7 +136,7 @@ public class BoardController {
 	@RequestMapping(value = "/boardWR", method=RequestMethod.POST)
 	public String boardWR(BoardParam param) {
 		boardService.insFreeBoard(param);		
-		return "redirect:/board/free";
+		return "redirect:/board/allBoard";
 
 	}
 	

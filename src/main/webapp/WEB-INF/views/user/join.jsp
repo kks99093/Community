@@ -145,7 +145,7 @@
 		}else if(join_frm.user_nm.value.length > 5){
 			alert('이름을 확인해 주세요')
 			return false
-		}else if(join_frm.nick_nm.value.length >10 || join_frm.user_nm.value.length < 3){
+		}else if(join_frm.nick_nm.value.length >10 || join_frm.nick_nm.value.length < 3){
 			alert('닉네임을 확인해주세요(3~10글자)')
 			return false
 		}else if(join_frm.emailOK.value == 0){

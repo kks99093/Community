@@ -8,8 +8,17 @@ public class BoardDMI extends BoardVO {
 	private int cmtCnt;
 	private String searchText;
 	private String sqlText;
+	private String category;
 
 	
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 	public int getCurPage() {
 		return curPage;
 	}

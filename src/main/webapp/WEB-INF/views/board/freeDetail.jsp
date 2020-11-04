@@ -25,7 +25,7 @@
 				${content.content }
 			</div>
 			<div class="vote">
-				<button id="likeCnt" onclick="insDelLike(${content.i_board},${login_user.i_user })" style="background: ${likeCk == null ? '#ffffff' : '#fafd86'};"></button>
+				<button id="likeCnt" onclick="insDelLike(${content.i_board},${login_user.i_user })" style="background: ${likeCk == null ? '#ffffff' : '#fafd86'};">${content.like_cnt }</button>
 			</div>
 	</div>
 	<div class="cmtScreen">
@@ -156,10 +156,10 @@
 				i_board : i_board
 			}
 		}).then(function(res){
+			console.log(res.data)
 			likeCnt.innerHTML = res.data.like_cnt
 		})
 	}
-	selLikeCnt(${content.i_board})
 	
 	function goFreeDetail(i_board){
 		location.href = "/board/free_detail?i_board="+i_board;

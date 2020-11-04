@@ -4,6 +4,12 @@
 	height: 600px;
 }
 
+.rankTitle{
+	margin:10px;
+	border-bottom: 1px solid #dedede;
+	height: 30px;
+}
+
 .main_container .main_borders{
 	display: flex;
 	width:100%;	
@@ -11,6 +17,7 @@
 }
 
 .main_container .main_borders .left_border{
+	background-color:#ffffff;
 	border: 1px solid #dedede;
 	width: 35%;
 	height: 100%;
@@ -35,9 +42,11 @@
 }
 
 .main_container .main_borders .right_top {
+	background-color:#ffffff;
 	margin:10px;
 	border:1px solid #dedede;
 	flex-grow:1;
+	height:200px;
 }
 
 .main_container .main_borders .right_bottom{
@@ -46,13 +55,45 @@
 }
 
 .main_container .main_borders .right_bottom .free_border_rank{
+	background-color:#ffffff;
+	border:1px solid #dedede;
+	flex-grow: 1;
+	margin:10px;
+	height:200px;
+}
+
+.main_container .main_borders .right_bottom .border_rank{
+	background-color:#ffffff;
 	border:1px solid #dedede;
 	flex-grow: 1;
 	margin:10px;
 }
 
-.main_container .main_borders .right_bottom .border_rank{
-	border:1px solid #dedede;
-	flex-grow: 1;
-	margin:10px;
+.freeWeek{
+	margin: 10px 0px 0px 10px;	
+}
+
+.humorWeek{
+	margin: 10px 0px 0px 10px;
+}
+
+.freeWeek:hover {
+	background-color: #dedede;
+}
+
+.humorWeek:hover {
+	background-color: #dedede;
+}
+
+.allWeek{
+	margin: 10px 0px 0px 10px;
+}
+
+.allWeek:hover{
+	background-color: #dedede;
+}
+
+
+.cursor{
+	cursor: pointer;
 }
