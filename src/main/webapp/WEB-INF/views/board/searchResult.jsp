@@ -8,7 +8,7 @@
 		<div class="search_tleft">
 			<div class="profile_img">
 				<img alt="이미지없음"
-					src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/profileicon/${game.smDTO.profileIconId}.png">
+					src="http://ddragon.leagueoflegends.com/cdn/10.22.1/img/profileicon/${game.smDTO.profileIconId}.png">
 				<div class="profile_level">${game.smDTO.summonerLevel}</div>
 			</div>
 			<div class="profile_info">
@@ -50,12 +50,12 @@
 				<div class="sum_info">
 					<div class="sumTB">
 						<img class="icon"
-							src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/champion/${dDTO.champId }.png">
+							src="http://ddragon.leagueoflegends.com/cdn/10.22.1/img/champion/${dDTO.champId }.png">
 						<div class="spell">
 							<img
-								src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/spell/${dDTO.spell1Id }.png">
+								src="http://ddragon.leagueoflegends.com/cdn/10.22.1/img/spell/${dDTO.spell1Id }.png">
 							<img
-								src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/spell/${dDTO.spell2Id }.png">
+								src="http://ddragon.leagueoflegends.com/cdn/10.22.1/img/spell/${dDTO.spell2Id }.png">
 						</div>
 						<div class="perk">
 							<img
@@ -72,9 +72,16 @@
 							/<span id='deathSc'> ${dDTO.deaths } </span>/ ${dDTO.assists }
 						</div>
 						<div>
-							<fmt:formatNumber
-								value="${(dDTO.kills + dDTO.assists)/dDTO.deaths}" pattern=".00" />
-							평점
+							<c:choose>
+								<c:when test="${dDTO.deaths != 0}">
+									<fmt:formatNumber
+									value="${(dDTO.kills + dDTO.assists)/dDTO.deaths}" pattern=".00" />
+								</c:when>
+								<c:otherwise>
+									Perfect 
+								</c:otherwise>
+							</c:choose>
+							 평점
 						</div>
 					</div>
 					<div class="sub_info">
@@ -95,47 +102,47 @@
 				<div class="item_info">
 					<div class="line_first">
 						<img onerror="this.src='/res/img/opacity1.png';"
-							src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/item/${dDTO.item0}.png">
+							src="http://ddragon.leagueoflegends.com/cdn/10.22.1/img/item/${dDTO.item0}.png">
 						<img onerror="this.src='/res/img/opacity1.png';"
-							src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/item/${dDTO.item1}.png">
+							src="http://ddragon.leagueoflegends.com/cdn/10.22.1/img/item/${dDTO.item1}.png">
 						<img onerror="this.src='/res/img/opacity1.png';"
-							src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/item/${dDTO.item2}.png">
+							src="http://ddragon.leagueoflegends.com/cdn/10.22.1/img/item/${dDTO.item2}.png">
 						<img onerror="this.src='/res/img/opacity1.png';"
-							src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/item/${dDTO.item6}.png">
+							src="http://ddragon.leagueoflegends.com/cdn/10.22.1/img/item/${dDTO.item6}.png">
 					</div>
 					<div class="line_second">
 						<img onerror="this.src='/res/img/opacity1.png';"
-							src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/item/${dDTO.item3}.png">
+							src="http://ddragon.leagueoflegends.com/cdn/10.22.1/img/item/${dDTO.item3}.png">
 						<img onerror="this.src='/res/img/opacity1.png';"
-							src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/item/${dDTO.item4}.png">
+							src="http://ddragon.leagueoflegends.com/cdn/10.22.1/img/item/${dDTO.item4}.png">
 						<img onerror="this.src='/res/img/opacity1.png';"
-							src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/item/${dDTO.item5}.png">
+							src="http://ddragon.leagueoflegends.com/cdn/10.22.1/img/item/${dDTO.item5}.png">
 					</div>
 				</div>
 				<div class="team_info">
 					<div class="blueTeam">
 						<img alt=""
-							src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/champion/${dDTO.blueTeam.champList[0]}.png">
+							src="http://ddragon.leagueoflegends.com/cdn/10.22.1/img/champion/${dDTO.blueTeam.champList[0]}.png">
 						<img alt=""
-							src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/champion/${dDTO.blueTeam.champList[1]}.png">
+							src="http://ddragon.leagueoflegends.com/cdn/10.22.1/img/champion/${dDTO.blueTeam.champList[1]}.png">
 						<img alt=""
-							src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/champion/${dDTO.blueTeam.champList[2]}.png">
+							src="http://ddragon.leagueoflegends.com/cdn/10.22.1/img/champion/${dDTO.blueTeam.champList[2]}.png">
 						<img alt=""
-							src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/champion/${dDTO.blueTeam.champList[3]}.png">
+							src="http://ddragon.leagueoflegends.com/cdn/10.22.1/img/champion/${dDTO.blueTeam.champList[3]}.png">
 						<img alt=""
-							src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/champion/${dDTO.blueTeam.champList[4]}.png">
+							src="http://ddragon.leagueoflegends.com/cdn/10.22.1/img/champion/${dDTO.blueTeam.champList[4]}.png">
 					</div>
 					<div class="redTeam">
 						<img alt=""
-							src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/champion/${dDTO.redTeam.champList[0]}.png">
+							src="http://ddragon.leagueoflegends.com/cdn/10.22.1/img/champion/${dDTO.redTeam.champList[0]}.png">
 						<img alt=""
-							src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/champion/${dDTO.redTeam.champList[1]}.png">
+							src="http://ddragon.leagueoflegends.com/cdn/10.22.1/img/champion/${dDTO.redTeam.champList[1]}.png">
 						<img alt=""
-							src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/champion/${dDTO.redTeam.champList[2]}.png">
+							src="http://ddragon.leagueoflegends.com/cdn/10.22.1/img/champion/${dDTO.redTeam.champList[2]}.png">
 						<img alt=""
-							src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/champion/${dDTO.redTeam.champList[3]}.png">
+							src="http://ddragon.leagueoflegends.com/cdn/10.22.1/img/champion/${dDTO.redTeam.champList[3]}.png">
 						<img alt=""
-							src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/champion/${dDTO.redTeam.champList[4]}.png">
+							src="http://ddragon.leagueoflegends.com/cdn/10.22.1/img/champion/${dDTO.redTeam.champList[4]}.png">
 					</div>
 				</div>
 			</div>

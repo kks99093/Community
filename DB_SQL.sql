@@ -122,7 +122,7 @@ SELECT A.i_board,title,content,A.r_dt,A.i_category,B.nick_nm,A.i_user,C.cmtCnt,A
 ORDER BY r_dt desc
 LIMIT 0,5;
 
-SELECT A.i_board,title,content,A.r_dt,i_category,B.nick_nm,A.i_user,C.cmtCnt,A.cnt, D.like_cnt FROM free_board A
+SELECT A.i_board,title,content,A.r_dt,i_category,B.nick_nm,A.i_user,C.cmtCnt,A.cnt, IFNULL(D.like_cnt,0) AS like_cnt FROM free_board A
 		INNER JOIN t_user B
 		ON A.i_user = B.i_user
 		LEFT JOIN 
@@ -138,3 +138,7 @@ SELECT A.i_board,title,content,A.r_dt,i_category,B.nick_nm,A.i_user,C.cmtCnt,A.c
 			) D
 		ON A.i_board = D.i_board
 		WHERE A.i_board = 3;
+		
+		SELECT i_board, count(i_board) as like_cnt FROM board_like
+		WHERE i_board = 2;
+		;

@@ -224,4 +224,6 @@
     text-align: center;
     text-decoration: none;
 }
-
+.margin_1px {
+	margin: 0 2px 0 2px;
+}

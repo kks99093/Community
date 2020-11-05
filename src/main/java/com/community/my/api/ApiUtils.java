@@ -20,7 +20,7 @@ import com.community.my.api.model.SummonerDTO;
 
 public class ApiUtils {
 	
-	private static String apiKey = "RGAPI-7933e43b-2bfa-46f3-8750-9dfbe3582f7e";
+	private static String apiKey = "RGAPI-f0d72b8d-5f91-4106-b7d4-551f7cb93c3b";
 	
 	
 	private static RestTemplate restTemplate = new RestTemplate();
@@ -180,7 +180,7 @@ public class ApiUtils {
 	
 	//챔프,스펠 id로 챔프,스펠 id,name 검색
 	public static String[] champSpellSearch(int id, String chamSpell) {
-		URI url = URI.create("http://ddragon.leagueoflegends.com/cdn/10.21.1/data/ko_KR/"+chamSpell+".json");
+		URI url = URI.create("http://ddragon.leagueoflegends.com/cdn/10.22.1/data/ko_KR/"+chamSpell+".json");
 		ChamSpell chamspell = restTemplate.getForObject(url, ChamSpell.class);
 		
 		for(Object key : chamspell.getData().keySet()) {
