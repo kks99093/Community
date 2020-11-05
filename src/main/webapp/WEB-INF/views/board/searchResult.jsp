@@ -91,9 +91,18 @@
 							) CS
 						</div>
 						<div>
-							<span id="killPer">킬 관여 <fmt:formatNumber
+							<span id="killPer">킬 관여
+							<c:choose>
+								<c:when test="${dDTO.totalKill != 0}">
+									<fmt:formatNumber
 									value="${(dDTO.kills+dDTO.assists)/dDTO.totalKill}"
-									type="percent" /></span>
+									type="percent" />									
+								</c:when>
+								<c:otherwise>
+									0 %
+								</c:otherwise>
+							</c:choose>
+							</span>
 						</div>
 						<div>시야점수</div>
 						<div>${dDTO.visionScore}</div>

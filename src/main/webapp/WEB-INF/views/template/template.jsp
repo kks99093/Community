@@ -17,7 +17,7 @@
 <body>
 	<div class="container">
 		<div class="header">
-			<h1 id="logo"><a href="/">다성이 바보</a></h1>
+			<h1 id="logo"><a href="/">VOLI.GG</a></h1>
 			<div class="search_input">
 				<form id="name_search_frm" action="/board/nameSearch">
 					<input type="text" name="name" placeholder="닉네임을 입려해 주세요">
