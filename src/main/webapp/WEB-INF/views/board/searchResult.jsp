@@ -13,7 +13,7 @@
 			</div>
 			<div class="profile_info">
 				<div class="profile_nm">${game.searchInfo[0].summonerName}</div>
-				<button class="search_reflesh">전적 갱신</button>
+				<button class="search_reflesh" onclick="nameSearch('${game.searchInfo[0].summonerName}')">전적 갱신</button>
 			</div>
 		</div>
 		<div class="search_tright">
@@ -154,3 +154,8 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="/res/js/moreGame.js"></script>
+<script>
+	function nameSearch(summonerName){
+		location.href = '/board/nameSearch?name='+summonerName
+	}
+</script>
