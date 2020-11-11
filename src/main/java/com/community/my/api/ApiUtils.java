@@ -20,15 +20,15 @@ import com.community.my.api.model.SummonerDTO;
 
 public class ApiUtils {
 	
-	private static String apiKey = "RGAPI-f0d72b8d-5f91-4106-b7d4-551f7cb93c3b";
+	private static String apiKey = "RGAPI-914adfaa-10d0-4ccb-9896-ce2fada10e8d";
 	
 	
 	private static RestTemplate restTemplate = new RestTemplate();
 	//id조회 (이름검색)
 	public static SummonerDTO nameSearch(SummonerDTO smDTO) {
 		SummonerDTO resultSmDTO = new SummonerDTO();
-		String SummonerName = smDTO.getName().replaceAll(" ", "%20"); //공백을 %20으로 바꿈 (api 규칙)
-		URI url = URI.create("https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/"+SummonerName+"?api_key=" + apiKey);
+		String summonerName = smDTO.getName().replaceAll(" ", "%20"); //공백을 %20으로 바꿈 (api 규칙)
+		URI url = URI.create("https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/"+summonerName+"?api_key=" + apiKey);
 		resultSmDTO = restTemplate.getForObject(url,SummonerDTO.class);
 		smDTO.setId(resultSmDTO.getId());
 		smDTO.setAccountId(resultSmDTO.getAccountId());
@@ -47,7 +47,18 @@ public class ApiUtils {
 		smDTO.setSummonerLevel(resultSmDTO.getSummonerLevel());
 		return smDTO;
 	}
-	
+	//id 조회 (서머너 id)
+	public static SummonerDTO sumSearch(SummonerDTO smDTO) {
+		SummonerDTO resultSmDTO = new SummonerDTO();
+		String summonerId = smDTO.getId();
+		URI url = URI.create("https://kr.api.riotgames.com/lol/summoner/v4/summoners/"+summonerId+"?api_key=" + apiKey);
+		resultSmDTO = restTemplate.getForObject(url,SummonerDTO.class);
+		smDTO.setId(resultSmDTO.getId());
+		smDTO.setAccountId(resultSmDTO.getAccountId());
+		smDTO.setProfileIconId(resultSmDTO.getProfileIconId());
+		smDTO.setSummonerLevel(resultSmDTO.getSummonerLevel());
+		return smDTO;
+	}
 	//id로 정보 조회
 	public static LeagueEntryDTO[] summonerInfo(LeagueEntryDTO leDTO) {
 		URI url = URI.create("https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/"+leDTO.getSummonerId()+"?api_key="+apiKey);
@@ -180,7 +191,7 @@ public class ApiUtils {
 	
 	//챔프,스펠 id로 챔프,스펠 id,name 검색
 	public static String[] champSpellSearch(int id, String chamSpell) {
-		URI url = URI.create("http://ddragon.leagueoflegends.com/cdn/10.22.1/data/ko_KR/"+chamSpell+".json");
+		URI url = URI.create("http://ddragon.leagueoflegends.com/cdn/10.23.1/data/ko_KR/"+chamSpell+".json");
 		ChamSpell chamspell = restTemplate.getForObject(url, ChamSpell.class);
 		
 		for(Object key : chamspell.getData().keySet()) {
@@ -259,8 +270,8 @@ public class ApiUtils {
 		list = restTemplate.getForObject(url, LeagueEntryDTO[].class);
 		SummonerDTO dto = new SummonerDTO();
 		for(int i=0; i<15; i++) {
-			dto.setName(list[i].getSummonerName());
-			dto = nameSearch(dto);
+			dto.setId(list[i].getSummonerId());
+			dto = sumSearch(dto);
 			list[i].setProfileIconId(dto.getProfileIconId());
 			list[i].setSummonerLevel(dto.getSummonerLevel());
 			list[i].setRanking(i+1);
