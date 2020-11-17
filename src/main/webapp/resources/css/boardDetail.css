@@ -87,6 +87,7 @@
 } 
 
 .free_Detail .cmtScreen .cmt .cmtMain{
+	width:100%;
 	margin-left:10px;
 	display: flex;
 	flex-direction: column;
@@ -112,3 +113,14 @@
 	margin-top:8px;
 	color: #7b858e;
 }
+
+.free_Detail .cmtScreen .cmt .cmtMain .cmtByCmtContent{
+	display:flex;
+	width:100%;
+	background-color: #f6f7f8;
+
+}
+.free_Detail .cmtScreen .cmt .cmtMain .cmtByCmtContent .nien{
+	width: 5%;
+}
+	

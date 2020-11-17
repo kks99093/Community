@@ -31,7 +31,6 @@ CREATE TABLE board_cmt(
 	i_board INT UNSIGNED NOT NULL,
 	c_content VARCHAR(200) NOT NULL,
 	i_user INT UNSIGNED NOT NULL,
-	like_cnt INT UNSIGNED,
 	r_dt DATETIME DEFAULT NOW(),
 	FOREIGN KEY (i_board) REFERENCES free_board(i_board),
 	FOREIGN KEY (i_user) REFERENCES t_user(i_user)
@@ -42,6 +41,18 @@ CREATE TABLE board_like(
 	PRIMARY KEY(i_user, i_board),
 	FOREIGN KEY (i_board) REFERENCES free_board(i_board),
 	FOREIGN KEY (i_user) REFERENCES t_user(i_user)
+);
+
+CREATE TABLE cmtByCmt(
+	i_cmtByCmt INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	i_user INT UNSIGNED NOT NULL,
+	i_cmt INT UNSIGNED,
+	i_board INT UNSIGNED NOT NULL,
+	c_content VARCHAR(200) NOT NULL,
+	r_dt DATETIME DEFAULT NOW(),
+	FOREIGN KEY (i_board) REFERENCES free_board(i_board),
+	FOREIGN KEY (i_user) REFERENCES t_user(i_user),
+	FOREIGN KEY (i_cmt) REFERENCES board_cmt(i_cmt)
 );
 
 SELECT * FROM free_board
@@ -122,23 +133,28 @@ SELECT A.i_board,title,content,A.r_dt,A.i_category,B.nick_nm,A.i_user,C.cmtCnt,A
 ORDER BY r_dt desc
 LIMIT 0,5;
 
-SELECT A.i_board,title,content,A.r_dt,i_category,B.nick_nm,A.i_user,C.cmtCnt,A.cnt, IFNULL(D.like_cnt,0) AS like_cnt FROM free_board A
+SELECT A.i_board,title,content,A.r_dt,i_category,B.nick_nm,A.i_user,C.i_cmt,C.cmtCnt,A.cnt, IFNULL(D.like_cnt,0) AS like_cnt FROM free_board A
 		INNER JOIN t_user B
 		ON A.i_user = B.i_user
 		LEFT JOIN 
 			(
-			SELECT i_board, COUNT(i_board) AS cmtCnt FROM board_cmt
+			SELECT i_board, COUNT(i_board) AS cmtCnt,i_cmt FROM board_cmt
 			GROUP BY i_board
 			) C
 		ON A.i_board = C.i_board
 		LEFT JOIN 
 			(
 				SELECT i_board, COUNT(i_board) AS like_cnt FROM board_like
-				WHERE i_board = 3
+				WHERE i_board = 1
 			) D
 		ON A.i_board = D.i_board
-		WHERE A.i_board = 3;
+		WHERE A.i_board = 1;
 		
 		SELECT i_board, count(i_board) as like_cnt FROM board_like
-		WHERE i_board = 2;
-		;
+		WHERE i_board = 1;
+		
+		
+		SELECT A.i_cmtByCmt, A.i_cmt, A.c_content, B.nick_nm, A.r_dt,A.i_user FROM cmtbycmt A
+		INNER JOIN t_user B
+		ON A.i_user = B.i_user 
+		WHERE i_board = 1;

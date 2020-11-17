@@ -14,6 +14,7 @@ import com.community.my.api.model.LeagueEntryDTO;
 import com.community.my.api.model.MatchDTO;
 import com.community.my.api.model.MatchlistDTO;
 import com.community.my.api.model.SummonerDTO;
+import com.community.my.board.model.BoardCBCVO;
 import com.community.my.board.model.BoardCmtVO;
 import com.community.my.board.model.BoardDMI;
 import com.community.my.board.model.BoardParam;
@@ -34,6 +35,7 @@ public class BoardService {
 	//글 삭제
 	@Transactional
 	public void delBoard(BoardParam param) {
+		boardMapper.delCbc(param);
 		boardMapper.delCmt(param);
 		boardMapper.delLike(param);
 		boardMapper.delBoard(param);
@@ -107,7 +109,23 @@ public class BoardService {
 	
 	//댓글 삭제
 	public int delCmt(BoardParam param) {
+		boardMapper.delCbc(param);
 		return boardMapper.delCmt(param);
+	}
+	
+	//대댓글 등록
+	public int insCmtByCmt(BoardCBCVO param) {
+		return boardMapper.insCmtByCmt(param);
+	}
+	
+	//대댓글 삭제
+	public int delCbc(BoardParam param) {
+		return boardMapper.delCbc(param);
+	}
+	
+	//대댓글 select
+	public List<BoardCBCVO> selCmtbyCmt(BoardParam param){
+		return boardMapper.selCmtbyCmt(param);
 	}
 	
 	//좋아요수 Select

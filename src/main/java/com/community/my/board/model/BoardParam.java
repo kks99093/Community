@@ -6,10 +6,17 @@ public class BoardParam extends BoardVO {
 	private int searchType;
 	private int cmtCnt;
 	private int i_cmt;
+	private int i_cmtByCmt;
 	private String searchText;
 	private String sqlText;
 	
 	
+	public int getI_cmtByCmt() {
+		return i_cmtByCmt;
+	}
+	public void setI_cmtByCmt(int i_cmtByCmt) {
+		this.i_cmtByCmt = i_cmtByCmt;
+	}
 	public int getI_cmt() {
 		return i_cmt;
 	}

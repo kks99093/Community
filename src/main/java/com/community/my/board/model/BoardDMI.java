@@ -2,6 +2,7 @@ package com.community.my.board.model;
 
 public class BoardDMI extends BoardVO {
 	private String nick_nm;
+	private int i_cmt;
 	private int curPage;
 	private int cntPerPage;
 	private int searchType;
@@ -11,6 +12,15 @@ public class BoardDMI extends BoardVO {
 	private String category;
 
 	
+	
+	public int getI_cmt() {
+		return i_cmt;
+	}
+
+	public void setI_cmt(int i_cmt) {
+		this.i_cmt = i_cmt;
+	}
+
 	public String getCategory() {
 		return category;
 	}

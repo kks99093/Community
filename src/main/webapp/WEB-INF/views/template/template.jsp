@@ -52,7 +52,7 @@
 								<div class="profileImg">
 									<c:choose>
 										<c:when test="${login_user.profile_img == null }">
-											<div class="userFrofile"><img src="/res/img/user/${login_user.i_user}/profileIcon/${login_user.profile_img}"></div>
+											<div class="userFrofile"><img src="/res/img/default_img.jpg"></div>
 										</c:when>
 										<c:otherwise>
 											<div class="userFrofile"><img src="/res/img/user/${login_user.i_user}/profileIcon/${login_user.profile_img}"></div>

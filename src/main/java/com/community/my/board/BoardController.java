@@ -14,6 +14,7 @@ import com.community.my.CommonUtils;
 import com.community.my.Const;
 import com.community.my.api.model.GameDTO;
 import com.community.my.api.model.SummonerDTO;
+import com.community.my.board.model.BoardCBCVO;
 import com.community.my.board.model.BoardCmtVO;
 import com.community.my.board.model.BoardDMI;
 import com.community.my.board.model.BoardParam;
@@ -81,6 +82,7 @@ public class BoardController {
 		//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 		boardService.addCnt(param);
 		model.addAttribute("cmt",boardService.selBoardCmt(param));
+		model.addAttribute("cmtbycmt", boardService.selCmtbyCmt(param));
 		model.addAttribute("content",boardService.selFreeBoardDetail(param));
 		model.addAttribute(Const.TITLE, "디테일");
 		model.addAttribute(Const.VIEW, "board/freeDetail");	
@@ -142,9 +144,10 @@ public class BoardController {
 	
 	//글삭제
 	@RequestMapping(value = "/boardDel")
-	public String boardDel(BoardParam param) {
+	public String boardDel(BoardParam param,RedirectAttributes ra) {
 		boardService.delBoard(param);
-		return "redirect:/board/free";
+		ra.addAttribute("i_category", param.getI_category());
+		return "redirect:/board/allBoard";
 	}
 	
 	//댓글 등록
@@ -162,6 +165,22 @@ public class BoardController {
 		ra.addAttribute("i_board", param.getI_board());
 		return"redirect:/board/free_detail";
 	}
+	
+	//대댓글 등록
+		@RequestMapping(value="/insCmtByCmt")
+		public String insCmtByCmt(BoardCBCVO param, RedirectAttributes ra) {
+			boardService.insCmtByCmt(param);
+			ra.addAttribute("i_board", param.getI_board());
+			return"redirect:/board/free_detail";
+		}
+		
+	//대댓글 삭제
+		@RequestMapping(value="/delCbc")
+		public String delCbc(BoardParam param, RedirectAttributes ra) {
+			boardService.delCbc(param);
+			ra.addAttribute("i_board", param.getI_board());
+			return"redirect:/board/free_detail";
+		}
 	
 	//서치 디테일 처리 (ajax X)
 	@RequestMapping(value="/nameSearch")

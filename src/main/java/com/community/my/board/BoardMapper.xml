@@ -95,12 +95,14 @@
 	
 	<!-- 디테일 select -->
 	<select id="selFreeBoardDetail" parameterType="BoardParam" resultType="BoardDMI">
-		SELECT A.i_board,title,content,A.r_dt,i_category,B.nick_nm,A.i_user,C.cmtCnt,A.cnt, IFNULL(D.like_cnt,0) AS like_cnt FROM free_board A
+		SELECT A.i_board,title,content,A.r_dt,i_category
+		,B.nick_nm,A.i_user,C.i_cmt,C.cmtCnt
+		,A.cnt, IFNULL(D.like_cnt,0) AS like_cnt FROM free_board A
 		INNER JOIN t_user B
 		ON A.i_user = B.i_user
 		LEFT JOIN 
 			(
-			SELECT i_board, COUNT(i_board) AS cmtCnt FROM board_cmt
+			SELECT i_board, COUNT(i_board) AS cmtCnt, i_cmt FROM board_cmt
 			GROUP BY i_board
 			) C
 		ON A.i_board = C.i_board
@@ -123,7 +125,7 @@
 		SELECT i_cmt, c_content, B.nick_nm, A.r_dt,A.i_user FROM board_cmt A
 		INNER JOIN t_user B
 		ON A.i_user = B.i_user 
-		WHERE i_board = #{i_board};
+		WHERE i_board = #{i_board}
 	</select>
 	
 	<!-- 댓글 등록 insert-->
@@ -131,7 +133,7 @@
 		INSERT INTO board_cmt
 		(i_board,c_content,i_user)
 		VALUES
-		(#{i_board},#{c_content},${i_user});
+		(#{i_board},#{c_content},#{i_user});
 	</insert>
 	
 	<!-- 댓글 삭제 -->
@@ -140,6 +142,34 @@
 		WHERE i_board = #{i_board} 
 		<if test="i_cmt > 0">
 		 AND i_cmt = #{i_cmt}
+		</if>
+	</delete>
+	
+	<!-- 대댓글 Select -->
+	<select id="selCmtbyCmt" parameterType="BoardParam" resultType="BoardCBCVO">
+		SELECT A.i_cmtByCmt, A.i_cmt, A.c_content, B.nick_nm, A.r_dt,A.i_user FROM cmtbycmt A
+		INNER JOIN t_user B
+		ON A.i_user = B.i_user 
+		WHERE i_board = #{i_board}
+	</select>
+		
+	<!-- 대댓글 등록 insert -->
+	<insert id="insCmtByCmt" parameterType="BoardCBCVO">
+		INSERT INTO cmtbycmt
+		(i_user, i_cmt, i_board, c_content)
+		VALUES
+		(#{i_user}, #{i_cmt}, #{i_board}, #{c_content});
+	</insert>
+	
+	<!-- 대댓글 삭제 -->
+	<delete id="delCbc" parameterType="BoardParam">
+		DELETE FROM cmtbycmt
+		WHERE i_board = #{i_board} 
+		<if test="i_cmt > 0">
+			AND i_cmt = #{i_cmt}
+		</if>
+		<if test="i_cmtByCmt > 0">
+			AND i_cmtByCmt = #{i_cmtByCmt}
 		</if>
 	</delete>
 	

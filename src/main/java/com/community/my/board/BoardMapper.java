@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.community.my.board.model.BoardCBCVO;
 import com.community.my.board.model.BoardCmtVO;
 import com.community.my.board.model.BoardDMI;
 import com.community.my.board.model.BoardParam;
@@ -16,11 +17,13 @@ public interface BoardMapper {
 	int insLike(BoardParam param);
 	int delLike(BoardParam param);
 	int insCmt(BoardCmtVO param);
+	int insCmtByCmt(BoardCBCVO param);
 	int selBoardChkUser(int i_board);
 	int selCmtChkUser(int i_cmt);
 	int addCnt(BoardParam param);
 	int delBoard(BoardParam param);
 	int delCmt(BoardParam param);
+	int delCbc(BoardParam param);
 	
 	BoardDMI selLike(BoardParam param);
 	BoardDMI selLikeCnt(BoardParam param);
@@ -33,4 +36,5 @@ public interface BoardMapper {
 	List<CodeVO> selCategory();
 	
 	List<BoardCmtVO> selBoardCmt(BoardParam param);
+	List<BoardCBCVO> selCmtbyCmt(BoardParam param);
 }

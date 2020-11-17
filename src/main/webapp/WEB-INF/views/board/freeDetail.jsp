@@ -18,7 +18,7 @@
 			</div>
 			<c:if test="${login_user.i_user == content.i_user}">
 				<div class="writeReg">
-					<button onclick="boardReg(${content.i_board})">수정</button> <button onclick="boardDel(${content.i_board})">삭제</button>
+					<button onclick="boardReg(${content.i_board})">수정</button> <button onclick="boardDel(${content.i_board},${content.i_category })">삭제</button>
 				</div>
 			</c:if>
 			<div class="detail_content">
@@ -39,7 +39,25 @@
 					</c:if>
 					</div>
 					<div class="cmtContent"> ${item.c_content }</div>
-					<div class="l_cmtIns">답글달기</div>
+					<c:if test="${login_user.i_user == content.i_user}"> 
+						<div class="l_cmtIns"><a id="openCBC${status.index}" onclick="cmtByCmt(${status.index},${item.i_cmt})">답글 달기</a></div>
+					</c:if>
+					<div id="cmtByCmtFrm${status.index}"></div>
+					<c:forEach items="${cmtbycmt}" var="cbc" varStatus="cbcIndex">
+						<div class="cmtByCmtContent">
+						<div class="nien"></div>
+							<div class="cbcMain">
+								<c:if test="${cbc.i_cmt == item.i_cmt }">
+									<div class="cmtNm">${cbc.nick_nm} <span class="cmt_r_dt">${cbc.r_dt }</span>
+										<c:if test="${login_user.i_user == cbc.i_user}"> 
+											<a onclick="delCbc(${cbc.i_cmtByCmt},${content.i_board},${item.i_cmt})">삭제</a>
+										</c:if>
+									</div>
+									<div class="cmtContent"> ${cbc.c_content }</div>
+								</c:if>
+							</div>
+						</div>
+					</c:forEach>
 				</div>
 			</div>
 		</c:forEach>
@@ -111,14 +129,15 @@
 	}
 	
 	//게시글 삭제
-	function boardDel(i_board){
+	function boardDel(i_board,i_category){
 		if(confirm('정말 삭제 하시겠습니까?')){
-			location.href = "/board/boardDel?i_board="+i_board;
+			location.href = "/board/boardDel?i_board="+i_board+'&i_category='+i_category;
 		}else{
 			return
 		}
 	}
 	
+	//댓글 삭제
 	function delCmt(i_board, i_cmt){
 		if(confirm('정말 삭제 하시겠습니까?')){
 			location.href = "/board/delCmt?i_board="+i_board+"&i_cmt="+i_cmt;
@@ -173,6 +192,80 @@
 		}else{
 			location.href = "/board/boardWR";
 		}
+	}
+	
+	//대댓글 input 생성
+	function cmtByCmt(index,i_cmt){
+		let form = document.createElement('form')
+		form.method = 'post'
+		form.action = '/board/insCmtByCmt'
+		form.id = 'cdcFrm'+index
+		form.setAttribute('onsubmit', 'return cbcChk('+index+')')
+		let input = document.createElement('input')
+		input.type = 'text'
+		input.name = 'c_content'
+		form.appendChild(input)
+		
+		let i_user = document.createElement('input')
+		i_user.type = 'hidden'
+		i_user.name = 'i_user'
+		i_user.value = ${login_user.i_user }
+		form.appendChild(i_user)
+		
+		let i_board = document.createElement('input')
+		i_board.type = 'hidden'
+		i_board.name = 'i_board'
+		i_board.value = ${content.i_board }
+		form.appendChild(i_board)
+		
+		let input_cmt = document.createElement('input')
+		input_cmt.type = 'hidden'
+		input_cmt.name = 'i_cmt'
+		input_cmt.value = i_cmt
+		form.appendChild(input_cmt)
+		
+		let submit = document.createElement('input')
+		submit.type = 'submit'
+		submit.value = '등록'
+		form.appendChild(submit)
+		
+		let cmtByCmtFrm = document.querySelector('#cmtByCmtFrm'+index)
+		cmtByCmtFrm.appendChild(form)
+		
+		let openCBC = document.querySelector('#openCBC'+index)
+		
+		openCBC.innerText = '답글 닫기'
+		openCBC.setAttribute('onclick','closeCBC('+index+','+i_cmt+')')
+	}
+	
+	//답글 form 닫기
+	function closeCBC(index,i_cmt){
+		let openCBC = document.querySelector('#openCBC'+index)
+		
+		openCBC.innerText = '답글 달기'
+		openCBC.setAttribute('onclick','cmtByCmt('+index+','+i_cmt+')')
+		
+		let cmtByCmtFrm = document.querySelector('#cmtByCmtFrm'+index)
+		cmtByCmtFrm.innerHTML = '';
+	}
+	
+	//대댓글 삭제
+	function delCbc(i_cmtByCmt, i_board, i_cmt){
+		if(confirm('정말 삭제 하시겠습니까?')){
+			location.href = "/board/delCbc?i_cmtByCmt="+i_cmtByCmt+"&i_board="+i_board+"&i_cmt="+i_cmt;
+		}else{
+			return
+		}
+	}
+	
+	//대댓글 form 유효성 검사
+	function cbcChk(index){
+		let cdcFrm = document.querySelector('#cdcFrm'+index)
+		if(cdcFrm.c_content.value.length == 0){
+			alert('내용을 적어주세요')
+			return false
+		}
+		return true
 	}
 
 </script>

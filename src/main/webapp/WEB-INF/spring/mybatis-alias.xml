@@ -12,5 +12,7 @@
 		<typeAlias type="com.community.my.board.model.CodeVO" alias="CodeVO" />
 		<typeAlias type="com.community.my.board.model.BoardCmtVO" alias="BoardCmtVO" />
 		<typeAlias type="com.community.my.board.model.PagingVO" alias="PagingVO" />
+		<typeAlias type="com.community.my.board.model.BoardCBCVO" alias="BoardCBCVO" />
+		
 	</typeAliases>
 </configuration>
