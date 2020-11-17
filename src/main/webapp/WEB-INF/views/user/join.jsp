@@ -15,7 +15,7 @@
 					<input type="text" name="user_id" placeholder="아이디" onkeyup="input_reset()">
 					<button type="button" onclick="overlapChk()" name="id_Chk">중복확인</button>
 				</li>
-				<li><input type="password" name="user_pw" placeholder="비밀번호"></li>
+				<li><input type="password" name="user_pw" placeholder="비밀번호 (영어,숫자,특수문자를 포함한 8~15글자)"></li>
 				<li><input type="password" name="user_pwre" placeholder="비밀번호 확인"></li>
 				<li><input type="text" name="user_nm" placeholder="이름"></li>
 				<li>
@@ -36,6 +36,7 @@
      </form>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
 
 	//인증메일 보내기
@@ -79,8 +80,9 @@
 	}
 	//아이디 중복체크
 	function overlapChk(){
-		if(join_frm.user_id.value.length < 5 || join_frm.user_id.value.length > 15 ){
-			alert('아이디를 확인해주세요 (5 ~ 15글자)')
+		var idRule = /^[a-z]+[a-z0-9]{5,15}$/g;
+		if( !idRule.test( $("input[name=user_id]").val())){
+			alert('아이디를 확인해주세요 (영문,숫자를 포함한 6 ~ 15글자)')
 			return
 		}
 		const user_id = join_frm.user_id.value
@@ -131,24 +133,29 @@
 		})
 	}
 	
-	//서브밋전 글자수 등 체크
+	//서브밋전 정규화
 	function ChkJoin(){
-		if(join_frm.user_id.value.length < 5 || join_frm.user_id.value.length > 15 ){
-			alert('아이디를 확인해주세요 (5 ~ 15글자)')
-			return false
-		}else if(join_frm.user_pw.value.length <5 || join_frm.user_id.value.length > 20){
-			alert('비밀번호를 확인해주세요(5 ~ 20글자)')
+		let passRule = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+		let emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		let idRule = /^[a-z]+[a-z0-9]{5,15}$/g;
+		let nameRule = /^[가-힣]{2,4}$/;
+		
+		if( !idRule.test( $("input[name='user_id']").val())){
+			alert('아이디를 확인해주세요 (영문,숫자를 포함한 6 ~ 15글자)')
+			return
+		}else if(!passRule.test($("input[name='user_pw']").val())){
+			alert('비밀번호는 영문,숫자,특수문자를 포함한 8~15글자를 적어주세요')
 			return false
 		}else if(join_frm.user_pw.value != join_frm.user_pwre.value){
 			alert('비밀번호를 확인해 주세요')
 			return false
-		}else if(join_frm.user_nm.value.length > 5){
-			alert('이름을 확인해 주세요')
+		}else if(!nameRule.test($("input[name='user_nm']").val())){
+			alert('이름을 확인해 주세요(2~4글자 한글)')
 			return false
 		}else if(join_frm.nick_nm.value.length >10 || join_frm.nick_nm.value.length < 3){
 			alert('닉네임을 확인해주세요(3~10글자)')
 			return false
-		}else if(join_frm.emailOK.value == 0){
+		}else if(!emailRule.test($("input[name='user_email']").val())){
 			alert('이메일 인증을 해주세요')
 			return false
 		}else if(join_frm.id_Chk.value == 1){
