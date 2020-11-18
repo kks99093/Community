@@ -34,12 +34,12 @@
 			<div class="cmt">
 				<div class="cmtMain">
 					<div class="cmtNm">${item.nick_nm} <span class="cmt_r_dt">${item.r_dt }</span>
-					<c:if test="${login_user.i_user == content.i_user}"> 
+					<c:if test="${login_user.i_user == item.i_user}"> 
 						<a href="#" onclick="delCmt(${content.i_board},${item.i_cmt})">삭제</a>
 					</c:if>
 					</div>
 					<div class="cmtContent"> ${item.c_content }</div>
-					<c:if test="${login_user.i_user == content.i_user}"> 
+					<c:if test="${login_user.i_user != null}"> 
 						<div class="l_cmtIns"><a id="openCBC${status.index}" onclick="cmtByCmt(${status.index},${item.i_cmt})">답글 달기</a></div>
 					</c:if>
 					<div id="cmtByCmtFrm${status.index}"></div>
