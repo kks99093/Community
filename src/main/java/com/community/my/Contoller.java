@@ -35,7 +35,7 @@ public class Contoller {
 		model.addAttribute("humorWeek",boardService.weekLikeBoard(param));
 		model.addAttribute("ranking", rank);
 		model.addAttribute("css", new String[] {"template", "main"});
-		model.addAttribute(Const.TITLE, "메인");
+		model.addAttribute(Const.TITLE, "VOLI.GG");
 		model.addAttribute(Const.VIEW,"board/main");
 		return Const.MAINTEMP;
 	}

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>${title }</title>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
@@ -62,11 +62,13 @@
 								</div>
 								<div class="user_nickNm">${login_user.nick_nm}</div>
 							</div>
+							<!-- 
 							<div class="login_userMy">
 								<button class="user_myBoard" onclick="myBoardSel()">내 글</button>
 								<button class="user_myCmt" onclick="myCmtSel()">내 댓글</button>
 								<button class="user_myFavorite" onclick="myFavoriteSel()">좋아요</button>
 							</div>
+							 -->
 							<div class ="logout">
 								<a href="/user/logout">로그아웃</a>
 							</div>

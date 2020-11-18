@@ -53,7 +53,7 @@ public class BoardController {
 		model.addAttribute("month",boardService.monthLikeBoard(param));
 		model.addAttribute("page",boardService.selPaging(page));
 		model.addAttribute("data",boardService.selFreeBoardList(param));
-		model.addAttribute(Const.TITLE, "자유 게시판");
+		model.addAttribute(Const.TITLE, "게시판");
 		model.addAttribute(Const.VIEW,"board/all");
 		model.addAttribute("css",new String[] {"all"});
 		return Const.MAINTEMP;
