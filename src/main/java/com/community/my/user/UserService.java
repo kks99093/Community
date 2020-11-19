@@ -103,7 +103,6 @@ public class UserService {
 			if(!dir.exists()) {
 				dir.mkdirs();
 			}
-			
 			//이미지파일 이름 변경
 			MultipartFile mf = param.getProfile_img();
 			String originNm = mf.getOriginalFilename();
@@ -116,7 +115,6 @@ public class UserService {
 			
 			int result = 0;
 			result = userMapper.updProfile(uParam);
-			
 			//파일생성
 			if(result == 1) {
 				try {
@@ -125,9 +123,6 @@ public class UserService {
 					e.printStackTrace();
 				} 
 			}
-			
-			
-			
 			return result;
 		}
 }

@@ -108,9 +108,10 @@ public class BoardService {
 	}
 	
 	//댓글 삭제
-	public int delCmt(BoardParam param) {
+	@Transactional
+	public void delCmt(BoardParam param) {
 		boardMapper.delCbc(param);
-		return boardMapper.delCmt(param);
+		boardMapper.delCmt(param);
 	}
 	
 	//대댓글 등록

@@ -29,21 +29,16 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 		switch(uriArr[1]) {
 			case "user":
 				switch (uriArr[2]) {
-				case "join":
-					if(login_user != null) {
-						response.sendRedirect("/");
-						return false;
-					}
-				case "login":
+				case "join": case "login":
 					if(login_user != null) {
 						response.sendRedirect("/");
 						return false;
 					}
 				}
 				
-			case "movie":
+			case "board":
 				switch(uriArr[2]) {
-					case "movieSeats": case"movieTicket":
+					case "profileImg": case"boardWR": case"insCmt":
 						if(login_user == null) {
 							response.sendRedirect("/");
 							return false;

@@ -23,7 +23,7 @@
 	</div>
 	<div class="p_userInfo">
 		<div>아이디 : ${login_user.user_id } </div>
-		<div>이메일 : ${login_user.nick_nm }</div>
+		<div>닉네임 : ${login_user.nick_nm }</div>
 		<div>가입일: ${login_user.r_dt }</div>
 	</div>
 </div>

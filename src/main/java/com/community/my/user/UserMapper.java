@@ -7,8 +7,8 @@ import com.community.my.user.model.UserParam;
 
 @Mapper
 public interface UserMapper {
-	int insJoin(UserParam param);
 	UserDMI overlapChk(UserParam param);
+	int insJoin(UserParam param);
 	int updProfile(UserParam param);
 
 }
