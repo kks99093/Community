@@ -40,15 +40,18 @@ public class BoardController {
 		}
 		if(param.getI_category() != 0) {
 			model.addAttribute("i_category",param.getI_category());
-			System.out.println(param.getI_category());
+			page.setI_category(param.getI_category());
 		}else {
 			model.addAttribute("i_category",0);
-			System.out.println(param.getI_category());
+		}		
+		param.setCntPerPage(page.getCntPerPage()); //리스트 서치 limit용
+		if(param.getSearchText() != null) {
+			String sqlText = "%"+param.getSearchText()+"%";
+			param.setSqlText(sqlText);
+			page.setSqlText(sqlText);
+			page.setSearchType(param.getSearchType());
 		}
 		
-		param.setCntPerPage(page.getCntPerPage()); //리스트 서치 limit용
-		String sqlText = "%"+param.getSearchText()+"%";
-		param.setSqlText(sqlText);
 		model.addAttribute("week",boardService.weekLikeBoard(param));
 		model.addAttribute("month",boardService.monthLikeBoard(param));
 		model.addAttribute("page",boardService.selPaging(page));

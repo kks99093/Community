@@ -84,8 +84,30 @@
 	
 	<!-- 페이징 갯수 Select -->
 	<select id="selTotalPage" parameterType="PagingVO" resultType="PagingVO">
-		SELECT COUNT(i_board) as totalBoard FROM free_board
+		SELECT COUNT(i_board) as totalBoard FROM free_board A
+		INNER JOIN t_category B
+		ON A.i_category = B.i_category
+		<if test="sqlText != null">
+			<choose>
+				<when test="searchType == 1">
+					WHERE title LIKE #{sqlText}
+				</when>
+				<when test="searchType == 2">
+					WHERE content LIKE #{sqlText}
+				</when>
+				<when test="searchType == 3">
+					WHERE title LIKE #{sqlText} OR content LIKE #{sqlText}
+				</when>
+			</choose>
+		</if>
+		<if test="i_category > 0 and searchType == 0">
+			WHERE A.i_category = #{i_category}
+		</if>
+		<if test="i_category > 0 and searchType >0">
+			AND A.i_category = #{i_category}
+		</if>
 	</select>
+	
 	<!-- 조회수 -->
 	<update id="addCnt" parameterType="BoardParam">
 		UPDATE free_board

@@ -12,7 +12,8 @@
 		SELECT i_user, user_id, user_pw, user_nm, user_email, nick_nm, salt, profile_img, r_dt FROM t_user
 		WHERE
 		<if test="user_id != null and user_id != ''"> user_id = #{user_id} </if>
-		<if test="nick_nm != null and nick_nm !=''"> nick_nm = #{nick_nm} </if>	
+		<if test="nick_nm != null and nick_nm !=''"> nick_nm = #{nick_nm} </if>
+		<if test="i_user != null and i_user !=''"> i_user = #{i_user} </if>		
 	</select>
 	
 	<update id="updProfile" parameterType="UserParam">
@@ -20,4 +21,5 @@
 		SET profile_img = #{profile_img}
 		WHERE i_user = #{i_user};
 	</update>
+
 </mapper>

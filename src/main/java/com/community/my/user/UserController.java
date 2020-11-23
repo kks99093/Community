@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.community.my.Const;
 import com.community.my.model.RestFile;
+import com.community.my.user.model.UserDMI;
 import com.community.my.user.model.UserParam;
 
 
@@ -58,9 +58,9 @@ public class UserController {
 	
 	//프로필 업데이트
 	@RequestMapping(value = "/updProfile")
-	public String changeProfile(RestFile param, HttpServletRequest hsr){
+	public String changeProfile(RestFile param, HttpServletRequest hsr, HttpSession hs){
 		String lastPage = hsr.getHeader("Referer");
-		userService.updProfile(param, hsr);
+		userService.updProfile(param, hsr, hs);
 		return "redirect:"+lastPage;
 	}
 	

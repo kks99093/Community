@@ -8,7 +8,6 @@ public class RestFile implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private int i_user;
-	
 	private MultipartFile profile_img;
 
 	public int getI_user() {

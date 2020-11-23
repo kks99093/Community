@@ -1,6 +1,7 @@
 package com.community.my.board.model;
 
 public class PagingVO {
+	private String sqlText;
 	private int pagingCnt;
 	private int cntPerPage;
 	private int totalBoard;
@@ -9,7 +10,29 @@ public class PagingVO {
 	private int endIdx;
 	private int rangeCnt;
 	private int curRange;
+	private int i_category;
+	private int searchType;
 	
+	
+
+	public String getSqlText() {
+		return sqlText;
+	}
+	public void setSqlText(String sqlText) {
+		this.sqlText = sqlText;
+	}
+	public int getSearchType() {
+		return searchType;
+	}
+	public void setSearchType(int searchType) {
+		this.searchType = searchType;
+	}
+	public int getI_category() {
+		return i_category;
+	}
+	public void setI_category(int i_category) {
+		this.i_category = i_category;
+	}
 	public int getCurRange() {
 		return curRange;
 	}

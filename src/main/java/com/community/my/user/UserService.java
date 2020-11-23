@@ -93,7 +93,7 @@ public class UserService {
 	 }
 	 
 	 //프로필이미지 변경
-	 public int updProfile(RestFile param, HttpServletRequest hsr) {
+	 public int updProfile(RestFile param, HttpServletRequest hsr, HttpSession hs) {
 			
 			String rPath =  hsr.getServletContext().getRealPath("");
 			String path = rPath+"resources/img/user/"+param.getI_user()+"/profileIcon/";
@@ -119,10 +119,18 @@ public class UserService {
 			if(result == 1) {
 				try {
 					mf.transferTo(new File(path + saveFileNm));
+					UserDMI userDb = userMapper.overlapChk(uParam);
+					
+					if(hs.getAttribute(Const.LOGIN_USER) != null) {
+						 hs.removeAttribute(Const.LOGIN_USER);
+					 }
+					 hs.setAttribute(Const.LOGIN_USER, userDb);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				} 
 			}
+			
 			return result;
 		}
 }
